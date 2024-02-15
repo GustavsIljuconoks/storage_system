@@ -10,9 +10,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: {
-                    "50":"#FFFFFF","100":"#FFFFFF","200":"#FFFFFF","300":"#FFFFFF","400":"#FEF4E3","500":"#FCE4BB","600":"#FBD594","700":"#F9C56D","800":"#F7B546","900":"#F6A61F","950":"#F59E0B"
-                }
+                primary: {}
             },
             fontFamily: {
                 'body': [
