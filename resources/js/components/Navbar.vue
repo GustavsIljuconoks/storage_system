@@ -12,17 +12,35 @@
         </template>
       <template #default="{isShowMenu}">
         <fwb-navbar-collapse :is-show-menu="isShowMenu">
-          <fwb-navbar-link is-active link="#">
-            Home
+          <fwb-navbar-link>
+            <router-link :to="{name: 'home'}">
+              Home
+            </router-link>
           </fwb-navbar-link>
-          <fwb-navbar-link link="#">
-            test
+          <fwb-navbar-link>
+            <router-link :to="{name: ''}">
+              Users
+            </router-link>
           </fwb-navbar-link>
-          <fwb-navbar-link link="#">
-            test
+          <fwb-navbar-link>
+            <router-link :to="{name: ''}">
+              Products
+            </router-link>
           </fwb-navbar-link>
-          <fwb-navbar-link link="#">
-            Logout
+          <fwb-navbar-link>
+            <router-link :to="{name: ''}">
+              Orders
+            </router-link>
+          </fwb-navbar-link>
+          <fwb-navbar-link>
+            <router-link :to="{name: ''}">
+              Logs
+            </router-link>
+          </fwb-navbar-link>
+          <fwb-navbar-link>
+            <router-link :to="{name: ''}">
+              Logout
+            </router-link>
           </fwb-navbar-link>
         </fwb-navbar-collapse>
       </template>
