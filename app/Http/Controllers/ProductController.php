@@ -56,18 +56,24 @@ class ProductController extends Controller
     public function deleteProduct(Request $request): JsonResponse
     {
         $productId = $request->productId;
+        $userRoleId = $request->userRoleId;
 
-        if(Product::where('product_id', $productId)->exists()) {
-            $product = Product::find($productId);
-            $product->delete();
+        if ($userRoleId === 1) {
+            if(Product::where('product_id', $productId)->exists()) {
+                $product = Product::find($productId);
+                $product->delete();
+
+                return response()->json([
+                    "success" => "Product deleted successfully"
+                ],200);
+            }
 
             return response()->json([
-                "success" => "Product deleted successfully"
-            ],200);
+                "message" => "Product not found"
+            ],404);
         }
-
         return response()->json([
-            "message" => "Product not found"
+            "message" => "Missing administrator privileges"
         ],404);
     }
 }
