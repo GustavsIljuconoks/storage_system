@@ -25,7 +25,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => 'admin',
-            'email' => 'admin@admin',
+            'email' => 'admin@admin.com',
             'password' => bcrypt('admin123'),
             'role_id' => 1,
             'remember_token' => Str::random(10),
