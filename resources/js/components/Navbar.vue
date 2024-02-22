@@ -18,7 +18,7 @@
             </router-link>
           </fwb-navbar-link>
           <fwb-navbar-link>
-            <router-link :to="{name: ''}">
+            <router-link :to="{name: 'users'}">
               Users
             </router-link>
           </fwb-navbar-link>
@@ -45,7 +45,7 @@
         </fwb-navbar-collapse>
       </template>
     </fwb-navbar>
-  </template>
+</template>
   
   <script setup type="ts">
   import {
