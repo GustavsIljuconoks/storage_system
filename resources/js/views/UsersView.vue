@@ -11,12 +11,13 @@
                 </div>
             </div>
             <div class="flex space-x-2">
-                <button class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 w-full md:w-auto rounded-lg flex items-center justify-center">
+                <router-link :to="{name: 'adduser'}" 
+                    class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 w-full md:w-auto rounded-lg flex items-center justify-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0  0  24  24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M18  7.5v3m0  0v3m0-3h3m-3  0h-3m-2.25-4.125a3.375  3.375  0  1  1-6.75  0  3.375  3.375  0  0  1  6.75  0ZM3  19.235v-.11a6.375  6.375  0  0  1  12.75  0v.109A12.318  12.318  0  0  1  9.374  21c-2.331  0-4.512-.645-6.374-1.766Z" />
                     </svg>
                     Add User
-                </button>
+                </router-link>
             </div>
         </div>
   
@@ -39,7 +40,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.role }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.lastorder }}</td>
                             <td class="space-y-2 md:space-y-0 pr-3 p-2 text-right text-sm font-medium">
-                                <button class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
+                                <router-link :to="{name: 'edituser'}" class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</router-link>
                                 <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
@@ -52,7 +53,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.role }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.lastorder }}</td>
                             <td class="space-y-2 md:space-y-0 pr-3 p-2 text-right text-sm font-medium">
-                                <button class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
+                                <router-link :to="{name: 'edituser'}" class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</router-link>
                                 <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
