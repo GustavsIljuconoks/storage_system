@@ -2,11 +2,11 @@
     <PageLayout>
             <div>
                 <div class="container mx-auto flex justify-between items-center">
-                    <ul class="flex justify-start space-x-2 text-white">
+                    <ul class="md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">
                         <li>
                         <button
                             @click="activeTabOne"
-                            class="shadow-md inline-block px-10 py-2 rounded-lg bg-gray-500 hover:bg-blue-800"
+                            class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-gray-500 hover:bg-blue-800"
                         >
                             All
                         </button>
@@ -14,7 +14,7 @@
                         <li>
                         <button
                             @click="activeTabTwo"
-                            class="shadow-md inline-block px-4 py-2 rounded-lg bg-gray-500 hover:bg-yellow-500"
+                            class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500 hover:bg-yellow-500"
                         >
                             Pending
                         </button>
@@ -22,7 +22,7 @@
                         <li>
                         <button
                             @click="activeTabThree"
-                            class="shadow-md inline-block px-4 py-2 rounded-lg bg-gray-500 hover:bg-green-600"
+                            class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500 hover:bg-green-600"
                         >
                             Delivered
                         </button>
@@ -37,40 +37,62 @@
                         </button>
                     </div>
                 </div>
+                <div class="mt-2 relative">
+                    <input type="text" id="search" class="w-full shadow-md px-3 py-2 border rounded-lg pl-10" placeholder="Search orders">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <div class="mt-6 bg-white">
-            <table class="min-w-full">
-                <thead>
-                    <tr>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
-                    </tr>
-                </thead>
-                <tbody class="bg-blue-200" v-show="tab === 1">
-                    <tr v-for="order in orders" :key="order.id">
-                        <td class="px-6 py-4 whitespace-nowrap">{{ order.id }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ order.name }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ order.category }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ order.quantity }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap">{{ order.status }}</td>
-                        <td class="space-x-2 space-y-2 text-right text-sm font-medium">
-                            <button class="bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
-                            <button class="bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody class="bg-blue-200" v-show="tab === 2">
-                    <!-- Pending orders -->
-                </tbody>
-                <tbody class="bg-blue-200" v-show="tab === 3">
-                    <!-- Completed orders -->
-                </tbody>
-            </table>
-        </div>
+            <div class="mt-6 overflow-auto relative">
+                <table class="min-w-full border-separate border-spacing-y-2">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-blue-200" v-show="tab === 1">
+                        <tr v-for="order in orders" :key="order.id">
+                            <td class="font-bold px-6 py-4 whitespace-nowrap">{{ order.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.category }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.quantity }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.status }}</td>
+                            <td class="space-y-2 md:space-y-0 pr-3 text-right text-sm font-medium">
+                                <button class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
+                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="bg-blue-200" v-show="tab === 1">
+                        <tr v-for="order in orders" :key="order.id">
+                            <td class="font-bold px-6 py-4 whitespace-nowrap">{{ order.id }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.name }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.category }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.quantity }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ order.status }}</td>
+                            <td class="space-y-2 md:space-y-0 pr-3 text-right text-sm font-medium">
+                                <button class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
+                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody class="bg-blue-200" v-show="tab === 2">
+                        <!-- Pending orders -->
+                    </tbody>
+                    <tbody class="bg-blue-200" v-show="tab === 3">
+                        <!-- Completed orders -->
+                    </tbody>
+                </table>
+            </div>
     </PageLayout>
 </template>
 
