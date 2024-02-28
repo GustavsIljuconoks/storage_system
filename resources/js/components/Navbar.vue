@@ -23,7 +23,7 @@
             </router-link>
           </fwb-navbar-link>
           <fwb-navbar-link>
-            <router-link :to="{name: ''}">
+            <router-link :to="{name: 'products'}">
               Products
             </router-link>
           </fwb-navbar-link>

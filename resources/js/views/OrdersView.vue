@@ -1,7 +1,7 @@
 <template>
     <PageLayout>
             <div>
-                <div class="container mx-auto flex justify-between items-center">
+                <div class="container mx-auto mt-40 md:mt-0 space-y-2 md:space-y-0 md:flex justify-between items-center">
                     <ul class="md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">
                         <li>
                         <button
@@ -28,8 +28,8 @@
                         </button>
                         </li>
                     </ul>
-                    <div class="flex justify-end ml-2">
-                        <button class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 rounded-lg flex items-center">
+                    <div class="flex justify-end ml-0 md:ml-2">
+                        <button class="w-full md:w-auto shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 rounded-lg flex items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="mr-1 w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="mt-2 relative">
-                    <input type="text" id="search" class="w-full shadow-md px-3 py-2 border rounded-lg pl-10" placeholder="Search orders">
+                    <input type="text" id="search" class="w-full shadow-md px-3 py-2 border rounded-lg pl-10" placeholder="Search order">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -65,9 +65,10 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ order.category }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ order.quantity }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ order.status }}</td>
-                            <td class="space-y-2 md:space-y-0 pr-3 text-right text-sm font-medium">
-                                <button class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
-                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                            <td class="space-y-2 md:space-y-0 pr-3 p-2 text-right text-sm font-medium">
+                                <button class="w-full md:w-auto shadow-md md:mr-2 bg-green-500 hover:bg-green-600 p-3 px-6 rounded text-white">Accept</button>
+                                <button class="w-full md:w-auto shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
+                                <button class="w-full md:w-auto shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -78,10 +79,10 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ order.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ order.category }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ order.quantity }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ order.status }}</td>
-                            <td class="space-y-2 md:space-y-0 pr-3 text-right text-sm font-medium">
-                                <button class="shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
-                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                            <td class="px-6 py-4 whitespace-nowrap">Delivered</td>
+                            <td class="space-y-2 md:space-y-0 pr-3 p-2 text-right text-sm font-medium">
+                                <button class="w-full md:w-auto shadow-md md:mr-2 bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white">Edit</button>
+                                <button class="w-full md:w-auto shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
                     </tbody>
