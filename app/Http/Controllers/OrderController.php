@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\ProductCategory;
 use App\Models\Manufacturers;
@@ -98,6 +99,29 @@ class OrderController extends Controller
 
         return response()->json([
             "message" => "No manufacturers found"
+        ],404);
+    }
+
+    public function deleteOrder(Request $request): JsonResponse
+    {
+        $orderId = $request->orderId;
+
+        if(Order::where('id', $orderId)->exists()) {
+            $order = Order::find($orderId);
+            $statusId = $order->status_id;
+
+            if ($statusId == 1) {
+                $order->delete();
+                return response()->json([
+                    "success" => "Order deleted successfully"
+                ],200);
+            }
+            return response()->json([
+                "message" => "Order couldn't be deleted"
+            ],404);
+        }
+        return response()->json([
+            "message" => "Order not found"
         ],404);
     }
 }

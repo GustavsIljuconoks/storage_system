@@ -30,6 +30,7 @@ Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('
 Route::post('/get-product', [OrderController::class, 'getProducts'])->name('order.products');
 Route::post('/get-manufacturer', [OrderController::class, 'getManufactures'])->name('order.manufacturers');
 Route::put('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
+Route::delete('/delete-order', [OrderController::class, 'deleteOrder'])->name('order.destroy');
 
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
