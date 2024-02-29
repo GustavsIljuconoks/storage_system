@@ -11,6 +11,7 @@ class ProductController extends Controller
 {
     public function getProducts(): JsonResponse
     {
+        // TODO: Return category name
         $products = Product::orderBy('created_at', 'desc')->get();
         return response()->json($products, 200);
     }

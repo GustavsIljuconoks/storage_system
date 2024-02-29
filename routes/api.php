@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ProductController;
+use \App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/get-products', [ProductController::class, 'getProducts'])->name('products.all');
 Route::put('/update-product', [ProductController::class, 'updateProduct'])->name('product.update');
 Route::delete('/delete-product', [ProductController::class, 'deleteProduct'])->name('product.delete');
+
+Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('order.make');
+Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('order.category');
+Route::post('/get-product', [OrderController::class, 'getProducts'])->name('order.products');
+Route::post('/get-manufacturer', [OrderController::class, 'getManufactures'])->name('order.manufacturers');
+Route::put('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
 
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
