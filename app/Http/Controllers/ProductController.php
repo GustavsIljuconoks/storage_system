@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -11,9 +13,23 @@ class ProductController extends Controller
 {
     public function getProducts(): JsonResponse
     {
-        // TODO: Return category name
         $products = Product::orderBy('created_at', 'desc')->get();
-        return response()->json($products, 200);
+        $productInfo = array();
+
+        foreach ($products as $product) {
+            $info = array(
+                'product_id' => $product->product_id,
+                'name' => $product->name,
+                'quantity_in_stock' => $product->quantity_in_stock,
+            );
+
+            $category = ProductCategory::find($product->category_id);
+            $info['category'] = $category ? $category->name : null;
+
+            array_push($productInfo, $info);
+        }
+
+        return response()->json($productInfo, 200);
     }
 
     public function updateProduct(Request $request): JsonResponse
