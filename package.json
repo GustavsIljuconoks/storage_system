@@ -14,7 +14,10 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "@headlessui/vue": "^1.7.19",
         "@vitejs/plugin-vue": "^5.0.3",
+        "flowbite": "^2.3.0",
+        "flowbite-vue": "^0.1.2",
         "vue": "^3.4.16",
         "vue-router": "^4.2.5"
     }

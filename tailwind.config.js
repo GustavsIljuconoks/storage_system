@@ -4,15 +4,54 @@ export default {
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
         "./resources/**/*.vue",
+        "node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}",
+        "node_modules/flowbite/**/*.{js,jsx,ts,tsx}",
+        "./node_modules/flowbite/**/*.js"
     ],
     theme: {
         extend: {
             colors: {
-                primary: {
-                    'grayIsh': '#e0e0e0'
-                }
-            }
+                primary: {}
+            },
+            fontFamily: {
+                'body': [
+              'Inter', 
+              'ui-sans-serif', 
+              'system-ui', 
+              '-apple-system', 
+              'system-ui', 
+              'Segoe UI', 
+              'Roboto', 
+              'Helvetica Neue', 
+              'Arial', 
+              'Noto Sans', 
+              'sans-serif', 
+              'Apple Color Emoji', 
+              'Segoe UI Emoji', 
+              'Segoe UI Symbol', 
+              'Noto Color Emoji'
+            ],
+                'sans': [
+              'Inter', 
+              'ui-sans-serif', 
+              'system-ui', 
+              '-apple-system', 
+              'system-ui', 
+              'Segoe UI', 
+              'Roboto', 
+              'Helvetica Neue', 
+              'Arial', 
+              'Noto Sans', 
+              'sans-serif', 
+              'Apple Color Emoji', 
+              'Segoe UI Emoji', 
+              'Segoe UI Symbol', 
+              'Noto Color Emoji'
+            ]
+              }
         },
     },
-    plugins: [],
+    plugins: [
+        require('flowbite/plugin')
+    ],
 }
