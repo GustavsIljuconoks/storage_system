@@ -10,7 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $table = 'order';
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'order_id';
 
     /**
      * The attributes that are mass assignable.

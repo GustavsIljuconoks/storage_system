@@ -84,7 +84,7 @@ class OrderController extends Controller
     {
         $orderId = $request->orderId;
 
-        if (Order::where('id', $orderId)->exists()) {
+        if (Order::where('order_id', $orderId)->exists()) {
             $order = Order::find($orderId);
 
             $order->update([
@@ -98,7 +98,7 @@ class OrderController extends Controller
         }
 
         return response()->json([
-            "message" => "No manufacturers found"
+            "message" => "No order found"
         ],404);
     }
 

@@ -69,7 +69,7 @@
                             <td class="flex flex-col gap-2 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">
 
                                 <div v-if="order.status == 'pending'">
-                                    <button class="shadow-md bg-green-500 hover:bg-green-600 p-3 px-6 rounded text-white">Accept</button>
+                                    <button @click="acceptOrder(order.id)" class="shadow-md bg-green-500 hover:bg-green-600 p-3 px-6 rounded text-white">Accept</button>
                                 </div>
                                 <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
@@ -91,6 +91,18 @@
         await axios.get('http://127.0.0.1:8000/api/get-orders')
             .then((response) => {
                 orders.value = response.data
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
+
+    const acceptOrder = async (orderId) => {
+        await axios.put('http://127.0.0.1:8000/api/change-order-status', {
+            orderId: orderId
+        })
+            .then((response) => {
+                console.log(response.data)
             })
             .catch((error) => {
                 console.error(error);
