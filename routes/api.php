@@ -27,6 +27,7 @@ Route::delete('/delete-product', [ProductController::class, 'deleteProduct'])->n
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('order.make');
 Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('order.category');
+Route::get('/get-orders', [OrderController::class, 'getOrders'])->name('order.category');
 Route::post('/get-product', [OrderController::class, 'getProducts'])->name('order.products');
 Route::post('/get-manufacturer', [OrderController::class, 'getManufactures'])->name('order.manufacturers');
 Route::put('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');

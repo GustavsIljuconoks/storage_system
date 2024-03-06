@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\ProductCategory;
 use App\Models\Manufacturers;
+use App\Models\OrderStates;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -122,5 +123,31 @@ class OrderController extends Controller
         return response()->json([
             "message" => "Order not found"
         ],404);
+    }
+
+    public function getOrders(): JsonResponse
+    {
+        $orders = Order::orderBy('created_at', 'asc')->get();
+        $orderInfo = array();
+
+        foreach ($orders as $order) {
+            $info = array(
+                'id' => $order->order_id,
+                'quantity' => $order->product_count,
+            );
+
+            $product = Product::find($order->product_id);
+            $categoryId = $product->category_id;
+            $productCategory = ProductCategory::find($categoryId);
+            $orderState = OrderStates::find($order->status_id);
+
+            $info['name'] = $product ? $product->name : null;
+            $info['category'] = $productCategory ? $productCategory->name : null;
+            $info['status'] = $orderState ? $orderState->name : null;
+
+            array_push($orderInfo, $info);
+        }
+
+        return response()->json($orderInfo, 200);
     }
 }
