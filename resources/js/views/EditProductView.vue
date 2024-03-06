@@ -5,9 +5,9 @@
 </style>
 
 <template>
-    <section class=" dark:bg-gray-500">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
-            <div class="mt-10 -mb-10 w-full bg-blue-200 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <section class="dark:bg-gray-500 mt-4">
+        <div class="flex flex-col items-center justify-center mx-auto lg:py-0">
+            <div class="w-full bg-blue-200 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Edit Product
