@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserRoles;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -67,5 +68,11 @@ class UserController extends Controller
         return response()->json([
             "message" => "user logged out"
         ],404);
+    }
+
+    public function getRoles(): JsonResponse
+    {
+        $roles = UserRoles::orderBy('created_at', 'desc')->get();
+        return response()->json($roles, 200);
     }
 }
