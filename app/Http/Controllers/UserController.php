@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
 use App\Models\User;
 use App\Models\UserRoles;
 use Illuminate\Http\JsonResponse;
@@ -74,5 +75,27 @@ class UserController extends Controller
     {
         $roles = UserRoles::orderBy('created_at', 'desc')->get();
         return response()->json($roles, 200);
+    }
+
+    public function getUsers(): JsonResponse
+    {
+        $users = User::orderBy('created_at', 'desc')->get();
+        $userInfo = array();
+
+        foreach ($users as $user) {
+            $info = array(
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role_id,
+            );
+
+            $role = UserRoles::find($user->role_id);
+            $info['role'] = $role ? $role->role : null;
+
+            array_push($userInfo, $info);
+        }
+
+        return response()->json($userInfo, 200);
     }
 }

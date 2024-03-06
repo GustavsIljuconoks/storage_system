@@ -35,6 +35,7 @@ Route::delete('/delete-order', [OrderController::class, 'deleteOrder'])->name('o
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::get('/get-roles', [UserController::class, 'getRoles'])->name('user.roles');
+Route::get('/get-users', [UserController::class, 'getUsers'])->name('user.all');
 
 Route::group([
     "middleware" => ["auth:sanctum"]
