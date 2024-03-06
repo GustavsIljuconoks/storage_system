@@ -37,7 +37,7 @@
                     </thead>
 
                     <tbody class="bg-blue-200">
-                        <tr v-for="product in products" :key="product.id">
+                        <tr v-for="product in products" :key="product.product_id">
                             <td class="font-bold px-6 py-4 whitespace-nowrap">{{ product.product_id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.quantity_in_stock }}</td>
@@ -45,7 +45,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.shelf }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.row }}</td>
                             <td class="flex flex-col gap-1 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">
-                                <router-link :to="{name: 'editproduct'}" class="shadow-md bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white text-center">Edit</router-link>
+                                <router-link :to="{name: 'editproduct', params: { id: product.product_id }}" class="shadow-md bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white text-center">Edit</router-link>
                                 <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>

@@ -5,9 +5,9 @@
 </style>
 
 <template>
-    <section class=" dark:bg-gray-500">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
-            <div class="mt-10 -mb-10 w-full bg-blue-200 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+    <section class=" dark:bg-gray-500 mt-4">
+        <div class="flex flex-col items-center justify-center mx-auto lg:py-0">
+            <div class="w-full bg-blue-200 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
 
                     <div v-if="error" :class="{ 'show': showError, 'hide': showError == false }" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert" >
@@ -22,7 +22,7 @@
                         Edit "{{ user.name }}"
                     </h1>
                     <div>
-                        <label for="id" class="block -mt-4 italic text-sm font-medium text-purple-900 dark:text-white">User's ID: {{ user.id }}</label>
+                        <label for="id" class="block -mt-4 italic text-sm font-medium text-purple-900 dark:text-white">User's ID: {{ user.user_id }}</label>
                     </div>
                     <form @submit.prevent="updateUser(user.id)" class="space-y-4 md:space-y-6">
                         <div>
