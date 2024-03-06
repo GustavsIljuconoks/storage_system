@@ -48,9 +48,10 @@ const router = createRouter({
             },
         },
         {
-            path: '/edituser',
+            path: '/edituser/:id?',
             name: 'edituser',
             component: EditUserView,
+            props: true,
             meta: {
                 title: 'Edit User',
             },

@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\ProductCategory;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\UserRoles;
 use Illuminate\Http\JsonResponse;
@@ -55,7 +54,7 @@ class UserController extends Controller
             "name" => $request->name,
             "email" => $request->email,
             "password" => Hash::make($request->password),
-            "role_id" => $request->role
+            "role_id" => $request->role_id
         ]);
 
         return response()->json([
@@ -116,5 +115,32 @@ class UserController extends Controller
         return response()->json([
             "message" => "Product not found"
         ],404);
+    }
+
+    public function detailsUser(Request $request, $id): JsonResponse
+    {
+        $user = User::find($id);
+
+        if(!empty($user)) {
+            return response()->json($user);
+        }
+
+        return response()->json([
+            "message" => "User not found"
+        ],404);
+    }
+
+    public function updateUser(Request $request, $id): JsonResponse
+    {
+        if (User::where('id', $id)->exists()) {
+            $user = User::find($id);
+
+            $user->update($request->all());
+
+            return response()->json([
+                "data" => $user,
+                "message" => "User updated successfully"
+            ], 200);
+        }
     }
 }
