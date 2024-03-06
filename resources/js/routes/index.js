@@ -89,9 +89,10 @@ const router = createRouter({
             },
         },
         {
-            path: '/editproduct',
+            path: '/editproduct/:id',
             name: 'editproduct',
             component: EditProductView,
+            props: true,
             meta: {
                 title: 'Edit Product',
             },
