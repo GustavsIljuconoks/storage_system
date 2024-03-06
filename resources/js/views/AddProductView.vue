@@ -12,6 +12,10 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Add Product
                     </h1>
+
+                    <AlertMessage :message="error" :show="showError" type="error" />
+                    <AlertMessage :message="success" :show="showSuccess" type="success" />
+
                     <form @submit.prevent="addProduct" class="space-y-4 md:space-y-6">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product's name</label>
@@ -78,12 +82,18 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted } from 'vue';
     import axios from "axios";
+    import AlertMessage from "@/components/AlertMessage.vue";
 
     interface IFormData {
         name: string,
         quantity_in_stock: number,
         category_id: number,
     }
+
+    const error = ref(null)
+    const showError = ref(true);
+    const success = ref(null)
+    const showSuccess = ref(true);
 
     const showMenu = ref(false);
     const categories = ref(false);
@@ -112,10 +122,20 @@
     const addProduct = async () => {
         await axios.post('http://127.0.0.1:8000/api/add-product', formData.value)
             .then((response) => {
-                console.log(response.data);
+                success.value = response.data.message || 'Product added sucessfully';
+                showSuccess.value = true;
+
+                setTimeout(() => {
+                    showSuccess.value = false;
+                }, 2000);
             })
             .catch((err)=> {
-                console.log(err);
+                error.value = err.response.data.message || 'An error occurred.';
+
+                showError.value = true;
+                setTimeout(() => {
+                    showError.value = false;
+                }, 2000);
             })
     }
 
