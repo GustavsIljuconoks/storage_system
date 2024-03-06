@@ -106,8 +106,14 @@ const router = createRouter({
     ]
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to, from, next) => {
     document.title = to.meta?.title ?? 'Default Title'
+
+    if (to.name !== 'login' && !localStorage.getItem('userToken')) {
+        next({ name: 'login' })
+    } else {
+        next()
+    }
 })  
 
 export default router

@@ -11,7 +11,7 @@
             </div>
         </template>
       <template #default="{isShowMenu}">
-        <fwb-navbar-collapse :is-show-menu="isShowMenu">
+        <fwb-navbar-collapse :is-show-menu="isShowMenu" v-if="props.authenticated">
           <fwb-navbar-link>
             <router-link :to="{name: 'home'}">
               Home
@@ -38,15 +38,22 @@
             </router-link>
           </fwb-navbar-link>
           <fwb-navbar-link>
-            <router-link :to="{name: ''}">
-              Logout
-            </router-link>
+              <div @click="userLogout">
+                  Logout
+              </div>
           </fwb-navbar-link>
+        </fwb-navbar-collapse>
+        <fwb-navbar-collapse v-if="!props.authenticated">
+            <fwb-navbar-link>
+                <router-link :to="{name: 'login'}">
+                    Login
+                </router-link>
+            </fwb-navbar-link>
         </fwb-navbar-collapse>
       </template>
     </fwb-navbar>
 </template>
-  
+
   <script setup type="ts">
   import {
     FwbNavbar,
@@ -54,4 +61,25 @@
     FwbNavbarLink,
     FwbNavbarLogo,
   } from 'flowbite-vue'
+  import axios from "axios";
+  import {useRouter} from "vue-router";
+  const props = defineProps(['authenticated'])
+
+  const router = useRouter();
+  const userToken = localStorage.getItem('userToken')
+
+  const userLogout = async () => {
+      const csrfToken = document.head.querySelector('meta[name="csrf-token"]').content;
+
+      try {
+          const response = await axios.post('http://127.0.0.1:8000/api/logout').finally(() => {
+              localStorage.removeItem('userToken');
+              localStorage.removeItem('authenticated');
+              axios.defaults.headers.common['Authorization'] = 'Bearer';
+              router.push({ name: 'home' });
+          });
+      } catch (error) {
+          console.error('Logout error:', error);
+      }
+  };
   </script>
