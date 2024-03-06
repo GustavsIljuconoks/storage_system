@@ -12,22 +12,28 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Add Product
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="#">
+                    <form @submit.prevent="addProduct" class="space-y-4 md:space-y-6">
                         <div>
                             <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product's name</label>
-                            <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="...">
+                            <input
+                                v-model="formData.name"
+                                type="text"
+                                name="name"
+                                id="name"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="..."
+                            >
                         </div>
                         <div>
                             <label for="quantity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Quantity</label>
-                            <input type="text" name="quantity" id="quantity" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="...">
-                        </div>
-                        <div>
-                            <label for="shelf" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Shelf</label>
-                            <input type="text" name="shelf" id="shelf" placeholder="..." class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label for="row" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Row</label>
-                            <input type="text" name="row" id="row" placeholder="..." class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <input
+                                v-model="formData.quantity_in_stock"
+                                type="text"
+                                name="quantity"
+                                id="quantity"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="..."
+                            >
                         </div>
 
                         <!-- Dropdown button -->
@@ -44,17 +50,21 @@
 
                         <!-- Dropdown menu -->
                         <div id="dropdown" class="p-2 z-10 hidden absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-50 dark:bg-gray-700" :class="{ show: showMenu }">
-                            <div class="p-3">
-                                <input id="default-radio-1" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="default-radio-1" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Category 1</label>
-                            </div>
-                            <div class="p-3">
-                                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Category 2</label>
-                            </div>
-                            <div class="p-3">
-                                <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                <label for="default-radio-2" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Category 3</label>
+                            <div class="p-3" v-for="category in categories" :key="category.id">
+                                <input
+                                    :id="category.category_id"
+                                    :value="category.category_id"
+                                    v-model="formData.category_id"
+                                    type="radio"
+                                    name="default-radio"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                                >
+                                <label
+                                    :for="category.category_id"
+                                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                >
+                                    {{ category.name }}
+                                </label>
                             </div>
                         </div>
                         <button type="submit" class="w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add Product</button>
@@ -67,14 +77,47 @@
 
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted } from 'vue';
+    import axios from "axios";
+
+    interface IFormData {
+        name: string,
+        quantity_in_stock: number,
+        category_id: number,
+    }
 
     const showMenu = ref(false);
+    const categories = ref(false);
+    const formData = ref<IFormData>({
+        name: '',
+        quantity_in_stock: null,
+        category_id: null,
+    });
 
     const closeDropdown = () => {
         if (showMenu.value) {
             showMenu.value = false;
         }
     };
+
+    const getCategories = async () => {
+        await axios.get('http://127.0.0.1:8000/api/get-categories')
+            .then((response) => {
+                categories.value = response.data;
+            })
+            .catch((err)=> {
+                console.log(err)
+            })
+    }
+
+    const addProduct = async () => {
+        await axios.post('http://127.0.0.1:8000/api/add-product', formData.value)
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((err)=> {
+                console.log(err);
+            })
+    }
 
     const handleClickOutside = (event) => {
         const dropdown = document.getElementById('dropdown');
@@ -86,6 +129,7 @@
 
     onMounted(() => {
         document.addEventListener('click', handleClickOutside);
+        getCategories();
     });
 
     onUnmounted(() => {
