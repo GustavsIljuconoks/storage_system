@@ -84,7 +84,7 @@
                                 <input
                                     :id="role.role_id"
                                     :value="role.role_id"
-                                    v-model="formData.role_id"
+                                    v-model="formData.role_id" 
                                     type="radio"
                                     name="default-radio"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -109,14 +109,6 @@
     import { ref, onMounted, onUnmounted } from 'vue';
     import axios from "axios";
     import { IFormData } from "../globals";
-
-    interface FormData {
-        name: string
-        email: string,
-        password: string,
-        password_confirmation: string,
-        role: number,
-    }
 
     const roleId = localStorage.getItem('roleId')
     const showMenu = ref(false);

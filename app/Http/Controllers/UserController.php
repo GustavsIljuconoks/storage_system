@@ -47,7 +47,7 @@ class UserController extends Controller
             "name" => "required",
             "email" => "required | email | unique:users",
             "password" => "required | confirmed",
-            "role" => "required"
+            "role_id" => "required"
         ]);
 
         User::create([
@@ -84,7 +84,7 @@ class UserController extends Controller
 
         foreach ($users as $user) {
             $info = array(
-                'id' => $user->id,
+                'id' => $user->user_id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'role' => $user->role_id,
