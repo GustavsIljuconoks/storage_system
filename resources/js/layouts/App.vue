@@ -7,8 +7,11 @@
 
 <script setup lang="ts">
     import Navbar from "../components/Navbar.vue";
-    import { ref } from "vue";
+    import { onBeforeMount, ref } from "vue";
 
-    const userToken = localStorage.getItem('userToken')
-    const authenticated = ref(JSON.parse(localStorage.getItem("authenticated")));
+    let authenticated = ref(false);
+
+    onBeforeMount(async () => {
+        authenticated = JSON.parse(localStorage.getItem("authenticated"));
+    });
 </script>

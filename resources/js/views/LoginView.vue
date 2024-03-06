@@ -9,6 +9,11 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Login
                     </h1>
+
+                    <div v-if="error" :class="{ 'show': showError, 'hide': showError == false }" class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50" role="alert" >
+                        <span class="font-medium">{{ error }}</span>
+                    </div>
+
                     <form @submit.prevent="login" class="space-y-4 md:space-y-6">
                         <div>
                             <label for="email"class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
@@ -58,26 +63,21 @@
     });
 
     const login = async () => {
-        try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login', formData.value);
-            var test = true;
-            localStorage.setItem('userToken', response.data.token);
-            localStorage.setItem("authenticated", JSON.stringify(test));
+        await axios.post('http://127.0.0.1:8000/api/login', formData.value)
+            .then((response) => {
+                localStorage.setItem('userToken', response.data.token);
+                localStorage.setItem("authenticated", JSON.stringify(true));
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-            router.push({ name: 'home' });
-        } catch (e) {
-            error.value = e.response.data.message || 'An error occurred.';
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+                router.push({ name: 'home' });
+            })
+            .catch((err)=> {
+                error.value = err.response.data.message || 'An error occurred.';
 
-            showError.value = true;
-            setTimeout(() => {
-                showError.value = false;
-            }, 2000);
-        }
-
-        formData.value = {
-            email: '',
-            password: '',
-        };
+                showError.value = true;
+                setTimeout(() => {
+                    showError.value = false;
+                }, 2000);
+            })
     };
 </script>
