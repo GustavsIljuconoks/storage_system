@@ -12,6 +12,10 @@
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Edit Product "{{ product.name }}"
                     </h1>
+
+                    <AlertMessage :message="error" :show="showError" type="error" />
+                    <AlertMessage :message="success" :show="showSuccess" type="success" />
+
                     <form @submit.prevent="updateProduct(product.product_id)" class="space-y-4 md:space-y-6">
                         <div>
                             <label for="id" class="block -mt-4 italic text-sm font-medium text-purple-900 dark:text-white">Product's ID: {{ product.product_id }}</label>
@@ -49,6 +53,7 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted } from 'vue';
     import axios from 'axios';
+    import AlertMessage from "@/components/AlertMessage.vue";
     const props = defineProps(['id', 'quantity']);
 
     interface IProduct {
@@ -62,6 +67,11 @@
         userRoleId: number
     }
     
+    const error = ref(null)
+    const showError = ref(true);
+    const success = ref(null)
+    const showSuccess = ref(true);
+
     const roleId = parseInt(localStorage.getItem('roleId'));
     const showMenu = ref(false);
     const product = ref<[IProduct]>([]);
@@ -88,11 +98,8 @@
         for (const key in formData.value) {
             if (formData.value[key]) {
                 requestData[key] = formData.value[key];
-                // console.log(formData.value);
             }
         }
-        // console.log(productId);
-        
 
         await axios.put('http://127.0.0.1:8000/api/update-product/' + productId, requestData)
             .then((response) => {
@@ -101,10 +108,20 @@
                     quantity_in_stock: 0,
                     userRoleId: 0
                 };
-                console.log(response.data);
+                success.value = response.data.message || 'Product edited sucessfully';
+                showSuccess.value = true;
+
+                setTimeout(() => {
+                    showSuccess.value = false;
+                }, 2000);
             })
             .catch((error) => {
-                console.log(error.data);
+                error.value = err.response.data.message || 'An error occurred.';
+
+                showError.value = true;
+                setTimeout(() => {
+                    showError.value = false;
+                }, 2000);
             });
     }
 

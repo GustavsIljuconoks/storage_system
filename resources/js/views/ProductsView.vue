@@ -46,7 +46,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.row }}</td>
                             <td class="flex flex-col gap-1 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">
                                 <router-link :to="{name: 'editproduct', params: { id: product.product_id }}" class="shadow-md bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white text-center">Edit</router-link>
-                                <button @click="productDelete(product.product_id)" class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                                <button @click="deleteProduct(product.product_id, userRoleId)" class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -62,6 +62,8 @@
 
     const products = ref([]);
 
+    const userRoleId = parseInt(localStorage.getItem('roleId'));
+
     const getProducts = async () => {
             await axios.get('http://127.0.0.1:8000/api/get-products')
                 .then((response) => {
@@ -72,18 +74,21 @@
                 });
     };
 
-    const productDelete = async (product_id) => {
+
+
+    const deleteProduct = async (productId, userRoleId) => {
         await axios.delete('http://127.0.0.1:8000/api/delete-product', {
             data: {
-                product_id: product_id
+                productId: productId,
+                userRoleId: userRoleId
             }
         })
-            .then((response) => {
-                getProducts();
-            })
-            .catch((err)=> {
-                console.log(err);
-            })
+        .then((response) => {
+            getProducts();
+        })
+        .catch((err)=> {
+            console.log(err);
+        })
     }
 
     onMounted(getProducts);
