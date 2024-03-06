@@ -116,9 +116,7 @@
 
     interface IUser {
         name: string,
-        id: number,
-        email: string,
-        password: string,
+        id: number
     }
 
     const showMenu = ref(false);

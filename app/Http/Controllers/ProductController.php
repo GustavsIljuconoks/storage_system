@@ -58,14 +58,14 @@ class ProductController extends Controller
         ], 200);
     }
 
-    public function updateProduct(Request $request): JsonResponse
+    public function updateProduct(Request $request, $id): JsonResponse
     {
-        $productId = $request->productId;
+        // $productId = $request->productId;
         $userRoleId = $request->userRoleId;
 
-        if ($userRoleId === 1) {
-            if (Product::where('product_id', $productId)->exists()) {
-                $product = Product::find($productId);
+        if ($userRoleId === 1 || $userRoleId === 2) {
+            if (Product::where('product_id', $id)->exists()) {
+                $product = Product::find($id);
 
                 $product->update($request->all());
 
@@ -117,6 +117,19 @@ class ProductController extends Controller
         }
         return response()->json([
             "message" => "Missing administrator privileges"
+        ],404);
+    }
+
+    public function productDetails(Request $request, $id): JsonResponse
+    {
+        $product = Product::find($id);
+
+        if(!empty($product)) {
+            return response()->json($product);
+        }
+
+        return response()->json([
+            "message" => "Product not found"
         ],404);
     }
 }

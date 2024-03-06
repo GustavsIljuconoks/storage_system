@@ -1,7 +1,7 @@
 <template>
     <PageLayout>
         <!-- Search input and buttons -->
-        <div class="flex flex-col gap-3 items-stretch md:flex-row justify-between mb-4">
+        <div class="flex flex-col gap-3 items-stretch md:flex-row justify-between">
             <div class="mt-2 relative">
                 <input type="text" id="search" class="w-full md:w-auto shadow-md px-3 py-2 border rounded-lg pl-10" placeholder="Search product">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -46,7 +46,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.row }}</td>
                             <td class="flex flex-col gap-1 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">
                                 <router-link :to="{name: 'editproduct', params: { id: product.product_id }}" class="shadow-md bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white text-center">Edit</router-link>
-                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                                <button @click="productDelete(product.product_id)" class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -68,9 +68,23 @@
                     products.value = response.data;
                 })
                 .catch((error) => {
-                    console.error(err);
+                    console.error(error);
                 });
     };
+
+    const productDelete = async (product_id) => {
+        await axios.delete('http://127.0.0.1:8000/api/delete-product', {
+            data: {
+                product_id: product_id
+            }
+        })
+            .then((response) => {
+                getProducts();
+            })
+            .catch((err)=> {
+                console.log(err);
+            })
+    }
 
     onMounted(getProducts);
 </script>
