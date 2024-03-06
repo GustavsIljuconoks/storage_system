@@ -36,6 +36,8 @@ Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
 Route::get('/get-roles', [UserController::class, 'getRoles'])->name('user.roles');
 Route::get('/get-users', [UserController::class, 'getUsers'])->name('user.all');
+Route::delete('/delete-user', [UserController::class, 'deleteUser'])->name('user.delete');
+//Route::post('/delete-user', [UserController::class, 'deleteUser'])->name('user.delete');
 
 Route::group([
     "middleware" => ["auth:sanctum"]

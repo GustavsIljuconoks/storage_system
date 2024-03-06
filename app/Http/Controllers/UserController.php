@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\User;
 use App\Models\UserRoles;
@@ -79,7 +80,7 @@ class UserController extends Controller
 
     public function getUsers(): JsonResponse
     {
-        $users = User::orderBy('created_at', 'desc')->get();
+        $users = User::orderBy('created_at', 'asc')->get();
         $userInfo = array();
 
         foreach ($users as $user) {
@@ -97,5 +98,23 @@ class UserController extends Controller
         }
 
         return response()->json($userInfo, 200);
+    }
+
+    public function deleteUser(Request $request): JsonResponse
+    {
+        $userId = $request->userId;
+
+        if(User::where('id', $userId)->exists()) {
+            $user = User::find($userId);
+            $user->delete();
+
+            return response()->json([
+                "success" => "User deleted successfully"
+            ],200);
+        }
+
+        return response()->json([
+            "message" => "Product not found"
+        ],404);
     }
 }

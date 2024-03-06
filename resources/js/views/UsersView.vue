@@ -41,7 +41,7 @@
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.lastorder }}</td>
                             <td class="flex flex-col gap-2 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">
                                 <router-link :to="{name: 'edituser'}" class="shadow-md bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white text-center">Edit</router-link>
-                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                                <button @click="userDelete(user.id)" class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
                             </td>
                         </tr>
                     </tbody>
@@ -61,6 +61,20 @@
         await axios.get('http://127.0.0.1:8000/api/get-users')
             .then((response) => {
                 users.value = response.data
+            })
+            .catch((err)=> {
+                console.log(err);
+            })
+    }
+
+    const userDelete = async (userId) => {
+        await axios.delete('http://127.0.0.1:8000/api/delete-user', {
+            data: {
+                userId: userId
+            }
+        })
+            .then((response) => {
+                getUsers();
             })
             .catch((err)=> {
                 console.log(err);
