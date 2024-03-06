@@ -67,6 +67,7 @@
             .then((response) => {
                 localStorage.setItem('userToken', response.data.token);
                 localStorage.setItem("authenticated", JSON.stringify(true));
+                localStorage.setItem('roleId', response.data.roleId);
 
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
                 router.push({ name: 'home' });

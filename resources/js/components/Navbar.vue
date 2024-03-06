@@ -75,6 +75,7 @@
           const response = await axios.post('http://127.0.0.1:8000/api/logout').finally(() => {
               localStorage.removeItem('userToken');
               localStorage.removeItem('authenticated');
+              localStorage.removeItem('roleId');
               axios.defaults.headers.common['Authorization'] = 'Bearer';
               router.push({ name: 'home' });
           });
