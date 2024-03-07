@@ -1,5 +1,6 @@
 import {createRouter, createWebHistory} from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import LogsView from "../views/LogsView.vue";
 import LoginView from "../views/LoginView.vue";
 import UsersView from "../views/UsersView.vue";
 import AddUserView from "../views/AddUserView.vue";
@@ -21,6 +22,14 @@ const router = createRouter({
             component: HomeView,
             meta: {
                 title: 'Home',
+            },
+        },
+        {
+            path: '/logs',
+            name: 'logs',
+            component: LogsView,
+            meta: {
+                title: 'Logs',
             },
         },
         {
