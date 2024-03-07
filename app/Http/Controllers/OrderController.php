@@ -172,4 +172,62 @@ class OrderController extends Controller
 
         return response()->json($orderInfo, 200);
     }
+
+    public function getPendingOrders(): JsonResponse
+    {
+        $orders = Order::where('status_id', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $orderInfo = array();
+
+        foreach ($orders as $order) {
+            $info = array(
+                'id' => $order->order_id,
+                'quantity' => $order->product_count,
+            );
+
+            $product = Product::find($order->product_id);
+            $categoryId = $product->category_id;
+            $productCategory = ProductCategory::find($categoryId);
+            $orderState = OrderStates::find($order->status_id);
+
+            $info['name'] = $product ? $product->name : null;
+            $info['category'] = $productCategory ? $productCategory->name : null;
+            $info['status'] = $orderState ? $orderState->name : null;
+
+            array_push($orderInfo, $info);
+        }
+
+        return response()->json($orderInfo, 200);
+    }
+
+    public function getDeliveredOrders(): JsonResponse
+    {
+        $orders = Order::where('status_id', 3)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $orderInfo = array();
+
+        foreach ($orders as $order) {
+            $info = array(
+                'id' => $order->order_id,
+                'quantity' => $order->product_count,
+            );
+
+            $product = Product::find($order->product_id);
+            $categoryId = $product->category_id;
+            $productCategory = ProductCategory::find($categoryId);
+            $orderState = OrderStates::find($order->status_id);
+
+            $info['name'] = $product ? $product->name : null;
+            $info['category'] = $productCategory ? $productCategory->name : null;
+            $info['status'] = $orderState ? $orderState->name : null;
+
+            array_push($orderInfo, $info);
+        }
+
+        return response()->json($orderInfo, 200);
+    }
 }

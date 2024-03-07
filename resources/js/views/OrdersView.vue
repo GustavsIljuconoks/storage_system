@@ -1,33 +1,50 @@
+<style>
+    .pending-link {
+        background-color: #ffc266;
+    }
+
+    .delivered-link {
+        background-color: #0066cc;
+    }
+
+    .all-link {
+        background-color: #0e9f6e;
+    }
+</style>
+
 <template>
     <PageLayout>
             <div>
                 <div class="container mx-auto mt-40 md:mt-0 space-y-2 md:space-y-0 md:flex justify-between items-center">
-<!--                    <ul class="md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">-->
-<!--                        <li>-->
-<!--                        <button-->
-<!--                            @click="activeTabOne"-->
-<!--                            class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-gray-500 hover:bg-blue-800"-->
-<!--                        >-->
-<!--                            All-->
-<!--                        </button>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                        <button-->
-<!--                            @click="activeTabTwo"-->
-<!--                            class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500 hover:bg-yellow-500"-->
-<!--                        >-->
-<!--                            Pending-->
-<!--                        </button>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                        <button-->
-<!--                            @click="activeTabThree"-->
-<!--                            class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500 hover:bg-green-600"-->
-<!--                        >-->
-<!--                            Delivered-->
-<!--                        </button>-->
-<!--                        </li>-->
-<!--                    </ul>-->
+                    <ul class="md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">
+                        <li>
+                            <button
+                                :class="{ 'all-link': activeLink === 'all'}"
+                                @click="getOrder"
+                                class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-gray-500"
+                            >
+                                All
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                :class="{ 'pending-link': activeLink === 'pending'}"
+                                @click="getPendingOrders"
+                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500"
+                            >
+                                Pending
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                :class="{ 'delivered-link': activeLink === 'delivered'}"
+                                @click="getDeliveredOrders"
+                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500"
+                            >
+                                Delivered
+                            </button>
+                        </li>
+                    </ul>
                     <div class="flex justify-end ml-0 md:ml-2">
                         <router-link :to="{name: 'addorder'}" 
                             class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 w-full md:w-auto rounded-lg flex items-center justify-center">
@@ -88,6 +105,7 @@
     import { onMounted, ref } from "vue";
 
     const orders = ref([]);
+    const activeLink = ref('');
 
     const error = ref(null)
     const showError = ref(true);
@@ -95,6 +113,7 @@
     const showSuccess = ref(true);
 
     const getOrder = async () => {
+        activeLink.value = 'all';
         await axios.get('http://127.0.0.1:8000/api/get-orders')
             .then((response) => {
                 orders.value = response.data
@@ -102,6 +121,29 @@
             .catch((error) => {
                 console.error(error);
             })
+    }
+
+    const getPendingOrders = async () => {
+        activeLink.value = 'pending';
+        await axios.get('http://127.0.0.1:8000/api/pending-order')
+            .then((response) => {
+                orders.value = response.data;
+            })
+            .catch((error) => {
+                console.error('Error fetching orders:', error);
+            });
+    }
+
+    const getDeliveredOrders = async () => {
+        activeLink.value = 'delivered';
+
+        await axios.get('http://127.0.0.1:8000/api/delivered-order')
+            .then((response) => {
+                orders.value = response.data;
+            })
+            .catch((error) => {
+                console.error('Error fetching orders:', error);
+            });
     }
 
     const acceptOrder = async (orderId) => {
