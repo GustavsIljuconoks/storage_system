@@ -26,4 +26,9 @@ class Order extends Model
         'created-date',
         'shipment_date',
     ];
+
+    public function children()
+    {
+        return $this->hasMany(OrderLogs::class);
+    }
 }

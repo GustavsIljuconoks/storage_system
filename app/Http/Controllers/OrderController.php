@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderLogs;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\ProductCategory;
@@ -26,7 +27,7 @@ class OrderController extends Controller
 
             if (Product::where('product_id', $productId)->exists()) {
 
-                Order::create([
+                $order = Order::create([
                     "status_id" => 1,
                     "user_id" => $userId,
                     "manufacturer_id" => $manufactureId,
@@ -34,6 +35,16 @@ class OrderController extends Controller
                     "product_count" => $productCount,
                     "created_date" => now(),
                 ]);
+
+                $orderId = $order->order_id;
+
+                $newOrder = new OrderLogs();
+                $newOrder->order_id = $orderId;
+                $newOrder->user_id = $userId;
+                $newOrder->action = 'Created';
+                $newOrder->created_at = now();
+                $newOrder->updated_at = now();
+                $newOrder->save();
 
                 return response()->json([
                     "message" => "Order created successfully"
@@ -109,6 +120,16 @@ class OrderController extends Controller
         if (Order::where('order_id', $orderId)->exists()) {
             $order = Order::find($orderId);
 
+            $orderId = $order->order_id;
+
+            $newOrder = new OrderLogs();
+            $newOrder->order_id = $orderId;
+            $newOrder->user_id = $request->userId;
+            $newOrder->action = 'Updated';
+            $newOrder->created_at = now();
+            $newOrder->updated_at = now();
+            $newOrder->save();
+
             $order->update([
                 'status_id' => 3,
                 'shipment_date' => now()
@@ -133,7 +154,28 @@ class OrderController extends Controller
             $statusId = $order->status_id;
 
             if ($statusId == 1) {
+
+                $orderId = $order->order_id;
+
+//                OrderLogs::create([
+//                    'order_id' => $orderId,
+//                    'user_id' => $request->userId,
+//                    'action' => 'Deleted',
+//                    'created_at' => now(),
+//                    'updated_at' => now(),
+//                ]);
+
+//                $newOrder = new OrderLogs;
+//                $newOrder->order_id = $orderId;
+//                $newOrder->user_id = $request->userId;
+//                $newOrder->action = 'Deleted';
+//                $newOrder->created_at = now();
+//                $newOrder->updated_at = now();
+//                $newOrder->save();
+
+                $order->children()->update(['order_id' => null]);
                 $order->delete();
+
                 return response()->json([
                     "success" => "Order deleted successfully"
                 ],200);
@@ -229,5 +271,11 @@ class OrderController extends Controller
         }
 
         return response()->json($orderInfo, 200);
+    }
+
+    public function logOrder(): JsonResponse
+    {
+        $orderLog = OrderLogs::orderBy('created_at', 'asc')->get();
+        return response()->json($orderLog,200);
     }
 }

@@ -36,6 +36,7 @@ Route::put('/change-order-status', [OrderController::class, 'changeOrderStatus']
 Route::delete('/delete-order', [OrderController::class, 'deleteOrder'])->name('order.destroy');
 Route::get('/pending-order', [OrderController::class, 'getPendingOrders'])->name('order.pending');
 Route::get('/delivered-order', [OrderController::class, 'getDeliveredOrders'])->name('order.pending');
+Route::get('/log-order', [OrderController::class, 'logOrder'])->name('order.log');
 
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
