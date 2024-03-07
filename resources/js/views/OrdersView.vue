@@ -21,7 +21,7 @@
                             <button
                                 :class="{ 'all-link': activeLink === 'all'}"
                                 @click="getOrder"
-                                class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-blue-900/20 hover:bg-[#4a7cd9] text-blue-100 hover:text-white ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                                class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-blue-900/20 hover:bg-[#4a7cd9] text-blue-100 hover:text-white"
                             >
                                 All
                             </button>
@@ -30,7 +30,7 @@
                             <button
                                 :class="{ 'pending-link': activeLink === 'pending'}"
                                 @click="getPendingOrders"
-                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-blue-900/20 hover:bg-[#ffc266] text-blue-100 hover:text-white ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-blue-900/20 hover:bg-[#ffc266] text-blue-100 hover:text-white"
                             >
                                 Pending
                             </button>
@@ -39,7 +39,7 @@
                             <button
                                 :class="{ 'delivered-link': activeLink === 'delivered'}"
                                 @click="getDeliveredOrders"
-                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-blue-900/20 hover:bg-[#0e9f6e] text-blue-100 hover:text-white ring-white/60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-blue-900/20 hover:bg-[#0e9f6e] text-blue-100 hover:text-white"
                             >
                                 Delivered
                             </button>
