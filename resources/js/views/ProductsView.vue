@@ -2,14 +2,7 @@
     <PageLayout>
         <!-- Search input and buttons -->
         <div class="flex flex-col gap-3 items-stretch md:flex-row justify-between">
-            <div class="relative">
-                <input type="text" id="search" class="w-full md:w-auto shadow-md px-3 py-2 border rounded-lg pl-10" placeholder="Search product">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-                </div>
-            </div>
+            <Search @update:search="searchText = $event"/>
             <div class="flex justify-end ml-0 md:ml-2">
                 <router-link :to="{name: 'addproduct'}" 
                     class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 w-full md:w-auto rounded-lg flex items-center justify-center">
@@ -37,7 +30,7 @@
                     </thead>
 
                     <tbody class="bg-blue-200">
-                        <tr v-for="product in products" :key="product.product_id">
+                        <tr v-for="product in filteredProducts" :key="product.product_id">
                             <td class="font-bold px-6 py-4 whitespace-nowrap">{{ product.product_id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.quantity_in_stock }}</td>
@@ -57,10 +50,12 @@
 
 <script setup type="ts">
     import PageLayout from '@/components/PageLayout.vue';
+    import Search from '@/components/Search.vue';
     import axios from "axios";
-    import { onMounted, ref } from "vue";
+    import { onMounted, ref, computed } from "vue";
 
     const products = ref([]);
+    const searchText = ref('');
 
     const userRoleId = parseInt(localStorage.getItem('roleId'));
 
@@ -90,6 +85,17 @@
             console.log(err);
         })
     }
+
+    const filteredProducts = computed(() => {
+        if (!searchText.value) return products.value;
+        const searchNumber = parseInt(searchText.value, 10);
+        return products.value.filter(product => {
+            if (!isNaN(searchNumber)) {
+                return product.product_id === searchNumber || product.quantity_in_stock === searchNumber;
+            }
+            return product.name.toLowerCase().includes(searchText.value.toLowerCase());
+        });
+    });
 
     onMounted(getProducts);
 </script>
