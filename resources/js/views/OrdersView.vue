@@ -46,7 +46,7 @@
                         </svg>
                     </div>
                 </div> -->
-                <Search placeholderText="Search Order"/>
+                <Search placeholderText="Search Order" :isSmall="true"/>
             </div>
             <div class="mt-6 overflow-auto relative">
                 <table class="min-w-full border-separate border-spacing-y-2">
@@ -99,7 +99,7 @@
     </PageLayout>
 </template>
 
-<script setup>
+<script setup type="ts">
     import { ref } from 'vue';
     import PageLayout from '@/components/PageLayout.vue';
     import Search from '@/components/Search.vue';
