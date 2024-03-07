@@ -33,7 +33,7 @@
             </router-link>
           </fwb-navbar-link>
           <fwb-navbar-link>
-            <router-link :to="{name: ''}">
+            <router-link :to="{name: 'logs'}">
               Logs
             </router-link>
           </fwb-navbar-link>

@@ -2,7 +2,7 @@
     <PageLayout>
         <!-- Search input and buttons -->
         <div class="flex flex-col gap-3 items-stretch md:flex-row justify-between">
-            <div class="mt-2 relative">
+            <div class="relative">
                 <input type="text" id="search" class="w-full md:w-auto shadow-md px-3 py-2 border rounded-lg pl-10" placeholder="Search product">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="gray" class="w-6 h-6">
