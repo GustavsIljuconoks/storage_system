@@ -110,7 +110,7 @@ class OrderController extends Controller
             $order = Order::find($orderId);
 
             $order->update([
-                'status_id' => 2,
+                'status_id' => 3,
                 'shipment_date' => now()
             ]);
 
@@ -128,7 +128,7 @@ class OrderController extends Controller
     {
         $orderId = $request->orderId;
 
-        if(Order::where('id', $orderId)->exists()) {
+        if(Order::where('order_id', $orderId)->exists()) {
             $order = Order::find($orderId);
             $statusId = $order->status_id;
 

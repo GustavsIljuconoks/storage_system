@@ -71,7 +71,9 @@
                                 <div v-if="order.status == 'pending'">
                                     <button @click="acceptOrder(order.id)" class="shadow-md bg-green-500 hover:bg-green-600 p-3 px-6 rounded text-white">Accept</button>
                                 </div>
-                                <button class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                                <div v-if="order.status != 'shipped'">
+                                    <button @click="deleteOrder(order.id)" class="shadow-md bg-red-600 hover:bg-red-800 p-3 px-4 rounded text-white">Delete</button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -86,6 +88,11 @@
     import { onMounted, ref } from "vue";
 
     const orders = ref([]);
+
+    const error = ref(null)
+    const showError = ref(true);
+    const success = ref(null)
+    const showSuccess = ref(true);
 
     const getOrder = async () => {
         await axios.get('http://127.0.0.1:8000/api/get-orders')
@@ -102,10 +109,37 @@
             orderId: orderId
         })
             .then((response) => {
+                getOrder();
                 console.log(response.data)
             })
             .catch((error) => {
                 console.error(error);
+            })
+    }
+
+    const deleteOrder = async (orderId) => {
+        await axios.delete('http://127.0.0.1:8000/api/delete-order', {
+            data: {
+                orderId: orderId
+            }
+        })
+            .then((response) => {
+                getOrder();
+
+                success.value = response.data.message || 'Success';
+                showSuccess.value = true;
+
+                setTimeout(() => {
+                    showSuccess.value = false;
+                }, 2000);
+            })
+            .catch((error) => {
+                error.value = error.response.data.message || 'An error occurred.';
+
+                showError.value = true;
+                setTimeout(() => {
+                    showError.value = false;
+                }, 2000);
             })
     }
 
