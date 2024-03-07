@@ -2,7 +2,7 @@
     <PageLayout>
         <!-- Search input and buttons -->
         <div class="flex flex-col gap-3 items-stretch md:flex-row justify-between mb-4">
-            <Search/>
+            <Search @update:search="searchText = $event"/>
             <div class="flex space-x-2">
                 <router-link :to="{name: 'adduser'}" 
                     class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py- w-full md:w-auto rounded-lg flex items-center justify-center h-10">
@@ -27,7 +27,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-blue-200">
-                        <tr v-for="user in users" :key="user.id">
+                        <tr v-for="user in filteredUsers" :key="user.id">
                             <td class="font-bold px-6 py-4 whitespace-nowrap">{{ user.id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.name }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ user.role }}</td>
@@ -47,9 +47,10 @@
     import PageLayout from '@/components/PageLayout.vue';
     import Search from '@/components/Search.vue';
     import axios from "axios";
-    import { onMounted, ref } from "vue";
+    import { onMounted, ref, computed } from "vue";
 
     const users = ref([]);
+    const searchText = ref('');
 
     const getUsers = async () => {
         await axios.get('http://127.0.0.1:8000/api/get-users')
@@ -74,6 +75,11 @@
                 console.log(err);
             })
     }
+
+    const filteredUsers = computed(() => {
+        if (!searchText.value) return users.value;
+        return users.value.filter(user => user.name.toLowerCase().includes(searchText.value.toLowerCase()));
+    });
 
     onMounted(() => {
         getUsers();

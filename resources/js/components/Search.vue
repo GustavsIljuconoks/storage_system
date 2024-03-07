@@ -6,6 +6,7 @@
             class="shadow-md w-full px-3 py-2 rounded-lg pl-10 h-10"
             :class="{ 'mt-2 shadow-md px-3 py-2 border rounded-lg pl-10': isSmall }"
             :placeholder="placeholderText"
+            @input="$emit('update:search', $event.target.value)"
         />
         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg
