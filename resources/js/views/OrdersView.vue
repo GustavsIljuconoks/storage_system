@@ -4,11 +4,11 @@
     }
 
     .delivered-link {
-        background-color: #0066cc;
+        background-color: #0e9f6e;
     }
 
     .all-link {
-        background-color: #0e9f6e;
+        background-color: #4a7cd9;
     }
 </style>
 
@@ -16,12 +16,12 @@
     <PageLayout>
             <div>
                 <div class="container mx-auto space-y-2 md:space-y-0 md:flex justify-between items-center">
-                    <ul class="md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">
+                    <ul class="bg-blue-900/20 p-1 space-x-1 rounded-xl md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">
                         <li>
                             <button
                                 :class="{ 'all-link': activeLink === 'all'}"
                                 @click="getOrder"
-                                class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-gray-500"
+                                class="shadow-md inline-block w-full px-10 py-2 rounded-lg bg-blue-900/20 hover:bg-[#4a7cd9] text-blue-100 hover:text-white"
                             >
                                 All
                             </button>
@@ -30,7 +30,7 @@
                             <button
                                 :class="{ 'pending-link': activeLink === 'pending'}"
                                 @click="getPendingOrders"
-                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500"
+                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-blue-900/20 hover:bg-[#ffc266] text-blue-100 hover:text-white"
                             >
                                 Pending
                             </button>
@@ -39,7 +39,7 @@
                             <button
                                 :class="{ 'delivered-link': activeLink === 'delivered'}"
                                 @click="getDeliveredOrders"
-                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-gray-500"
+                                class="shadow-md inline-block w-full px-4 py-2 rounded-lg bg-blue-900/20 hover:bg-[#0e9f6e] text-blue-100 hover:text-white"
                             >
                                 Delivered
                             </button>
