@@ -27,7 +27,8 @@ class UserController extends Controller
                 return response()->json([
                     "message" => "Login successful",
                     "token" => $token,
-                    "roleId" => $user->role_id
+                    "roleId" => $user->role_id,
+                    "userId" => $user->user_id
                 ],200);
             }
 

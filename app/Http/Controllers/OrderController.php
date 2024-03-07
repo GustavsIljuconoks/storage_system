@@ -20,7 +20,7 @@ class OrderController extends Controller
         $productId = $request->productId;
         $productCount = $request->count;
 
-        $userRoleId = User::where("id", $userId)->get(['role_id']);
+        $userRoleId = User::where("user_id", $userId)->get(['role_id']);
 
         if ($userRoleId !== 3 && $manufactureId !== null) {
 
@@ -39,11 +39,11 @@ class OrderController extends Controller
                     "message" => "Order created successfully"
                 ], 200);
             }
-
-            return response()->json([
-                "message" => "No product found"
-            ],404);
         }
+
+        return response()->json([
+            "message" => "No product found"
+        ],404);
     }
 
     public function getCategories(): JsonResponse
@@ -54,11 +54,23 @@ class OrderController extends Controller
 
     public function getProducts(Request $request): JsonResponse
     {
-        $categoryId = $request->categoryId;
+        $categoryId = $request->id;
 
         if (Product::where('category_id', $categoryId)->exists()) {
             $products = Product::where('category_id', $categoryId)->get();
-            return response()->json($products, 200);
+            $productInfo = array();
+
+            foreach ($products as $product) {
+                $info = array(
+                    'id' => $product->product_id,
+                    'name' => $product->name,
+                    'quantity_in_stock' => $product->quantity_in_stock,
+                    'category_id' => $product->category_id,
+                );
+
+                array_push($productInfo, $info);
+            }
+            return response()->json($productInfo, 200);
         }
 
         return response()->json([
@@ -68,11 +80,21 @@ class OrderController extends Controller
 
     public function getManufactures(Request $request): JsonResponse
     {
-        $productId = $request->productId;
+        $productId = $request->id;
 
         if (Manufacturers::where('product_id', $productId)->exists()) {
-            $manufacturer = Manufacturers::where('product_id', $productId)->get();
-            return response()->json($manufacturer, 200);
+            $manufacturers = Manufacturers::where('product_id', $productId)->get();
+            $manufacturerInfo = array();
+
+            foreach ($manufacturers as $manufacture) {
+                $info = array(
+                    'id' => $manufacture->manafacturer_id,
+                    'name' => $manufacture->name,
+                );
+
+                array_push($manufacturerInfo, $info);
+            }
+            return response()->json($manufacturerInfo, 200);
         }
 
         return response()->json([
