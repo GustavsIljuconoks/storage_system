@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\ProductCategory;
 use App\Models\Manufacturers;
+use App\Models\OrderStates;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class OrderController extends Controller
         $productId = $request->productId;
         $productCount = $request->count;
 
-        $userRoleId = User::where("id", $userId)->get(['role_id']);
+        $userRoleId = User::where("user_id", $userId)->get(['role_id']);
 
         if ($userRoleId !== 3 && $manufactureId !== null) {
 
@@ -38,11 +39,11 @@ class OrderController extends Controller
                     "message" => "Order created successfully"
                 ], 200);
             }
-
-            return response()->json([
-                "message" => "No product found"
-            ],404);
         }
+
+        return response()->json([
+            "message" => "No product found"
+        ],404);
     }
 
     public function getCategories(): JsonResponse
@@ -53,11 +54,23 @@ class OrderController extends Controller
 
     public function getProducts(Request $request): JsonResponse
     {
-        $categoryId = $request->categoryId;
+        $categoryId = $request->id;
 
         if (Product::where('category_id', $categoryId)->exists()) {
             $products = Product::where('category_id', $categoryId)->get();
-            return response()->json($products, 200);
+            $productInfo = array();
+
+            foreach ($products as $product) {
+                $info = array(
+                    'id' => $product->product_id,
+                    'name' => $product->name,
+                    'quantity_in_stock' => $product->quantity_in_stock,
+                    'category_id' => $product->category_id,
+                );
+
+                array_push($productInfo, $info);
+            }
+            return response()->json($productInfo, 200);
         }
 
         return response()->json([
@@ -67,11 +80,21 @@ class OrderController extends Controller
 
     public function getManufactures(Request $request): JsonResponse
     {
-        $productId = $request->productId;
+        $productId = $request->id;
 
         if (Manufacturers::where('product_id', $productId)->exists()) {
-            $manufacturer = Manufacturers::where('product_id', $productId)->get();
-            return response()->json($manufacturer, 200);
+            $manufacturers = Manufacturers::where('product_id', $productId)->get();
+            $manufacturerInfo = array();
+
+            foreach ($manufacturers as $manufacture) {
+                $info = array(
+                    'id' => $manufacture->manafacturer_id,
+                    'name' => $manufacture->name,
+                );
+
+                array_push($manufacturerInfo, $info);
+            }
+            return response()->json($manufacturerInfo, 200);
         }
 
         return response()->json([
@@ -83,11 +106,11 @@ class OrderController extends Controller
     {
         $orderId = $request->orderId;
 
-        if (Order::where('id', $orderId)->exists()) {
+        if (Order::where('order_id', $orderId)->exists()) {
             $order = Order::find($orderId);
 
             $order->update([
-                'status_id' => 2,
+                'status_id' => 3,
                 'shipment_date' => now()
             ]);
 
@@ -97,7 +120,7 @@ class OrderController extends Controller
         }
 
         return response()->json([
-            "message" => "No manufacturers found"
+            "message" => "No order found"
         ],404);
     }
 
@@ -105,7 +128,7 @@ class OrderController extends Controller
     {
         $orderId = $request->orderId;
 
-        if(Order::where('id', $orderId)->exists()) {
+        if(Order::where('order_id', $orderId)->exists()) {
             $order = Order::find($orderId);
             $statusId = $order->status_id;
 
@@ -122,5 +145,89 @@ class OrderController extends Controller
         return response()->json([
             "message" => "Order not found"
         ],404);
+    }
+
+    public function getOrders(): JsonResponse
+    {
+        $orders = Order::orderBy('created_at', 'asc')->get();
+        $orderInfo = array();
+
+        foreach ($orders as $order) {
+            $info = array(
+                'id' => $order->order_id,
+                'quantity' => $order->product_count,
+            );
+
+            $product = Product::find($order->product_id);
+            $categoryId = $product->category_id;
+            $productCategory = ProductCategory::find($categoryId);
+            $orderState = OrderStates::find($order->status_id);
+
+            $info['name'] = $product ? $product->name : null;
+            $info['category'] = $productCategory ? $productCategory->name : null;
+            $info['status'] = $orderState ? $orderState->name : null;
+
+            array_push($orderInfo, $info);
+        }
+
+        return response()->json($orderInfo, 200);
+    }
+
+    public function getPendingOrders(): JsonResponse
+    {
+        $orders = Order::where('status_id', 1)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $orderInfo = array();
+
+        foreach ($orders as $order) {
+            $info = array(
+                'id' => $order->order_id,
+                'quantity' => $order->product_count,
+            );
+
+            $product = Product::find($order->product_id);
+            $categoryId = $product->category_id;
+            $productCategory = ProductCategory::find($categoryId);
+            $orderState = OrderStates::find($order->status_id);
+
+            $info['name'] = $product ? $product->name : null;
+            $info['category'] = $productCategory ? $productCategory->name : null;
+            $info['status'] = $orderState ? $orderState->name : null;
+
+            array_push($orderInfo, $info);
+        }
+
+        return response()->json($orderInfo, 200);
+    }
+
+    public function getDeliveredOrders(): JsonResponse
+    {
+        $orders = Order::where('status_id', 3)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $orderInfo = array();
+
+        foreach ($orders as $order) {
+            $info = array(
+                'id' => $order->order_id,
+                'quantity' => $order->product_count,
+            );
+
+            $product = Product::find($order->product_id);
+            $categoryId = $product->category_id;
+            $productCategory = ProductCategory::find($categoryId);
+            $orderState = OrderStates::find($order->status_id);
+
+            $info['name'] = $product ? $product->name : null;
+            $info['category'] = $productCategory ? $productCategory->name : null;
+            $info['status'] = $orderState ? $orderState->name : null;
+
+            array_push($orderInfo, $info);
+        }
+
+        return response()->json($orderInfo, 200);
     }
 }

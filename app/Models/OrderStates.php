@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class OrderStates extends Model
 {
     use HasFactory;
 
-    protected $table = 'order';
-    protected $primaryKey = 'order_id';
+    protected $table = 'order_status';
+    protected $primaryKey = 'category_id';
 
     /**
      * The attributes that are mass assignable.
@@ -18,12 +18,6 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable  = [
-        'status_id',
-        'user_id',
-        'manufacturer_id',
-        'product_id',
-        'product_count',
-        'created-date',
-        'shipment_date',
+        'name'
     ];
 }

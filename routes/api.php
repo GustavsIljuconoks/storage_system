@@ -29,10 +29,13 @@ Route::get('/get-products/{id}', [ProductController::class, 'productDetails'])->
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('order.make');
 Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('order.category');
+Route::get('/get-orders', [OrderController::class, 'getOrders'])->name('order.category');
 Route::post('/get-product', [OrderController::class, 'getProducts'])->name('order.products');
 Route::post('/get-manufacturer', [OrderController::class, 'getManufactures'])->name('order.manufacturers');
 Route::put('/change-order-status', [OrderController::class, 'changeOrderStatus'])->name('order.status');
 Route::delete('/delete-order', [OrderController::class, 'deleteOrder'])->name('order.destroy');
+Route::get('/pending-order', [OrderController::class, 'getPendingOrders'])->name('order.pending');
+Route::get('/delivered-order', [OrderController::class, 'getDeliveredOrders'])->name('order.pending');
 
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');

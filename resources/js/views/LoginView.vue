@@ -65,9 +65,11 @@
     const login = async () => {
         await axios.post('http://127.0.0.1:8000/api/login', formData.value)
             .then((response) => {
+                console.log(response.data)
                 localStorage.setItem('userToken', response.data.token);
                 localStorage.setItem("authenticated", JSON.stringify(true));
                 localStorage.setItem('roleId', response.data.roleId);
+                localStorage.setItem('userId', response.data.userId);
 
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
                 router.push({ name: 'home' });

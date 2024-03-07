@@ -24,7 +24,7 @@
             class="fixed mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
           >
             <div class="px-1 py-1">
-              <MenuItem v-for="(item, index) in menuItems" :key="index" v-slot="{ active }">
+              <MenuItem v-for="(item, index) in menuItems" :key="index" v-slot="{ active }" @click="handleMenuItemClick(item)">
                 <button
                   :class="[
                     active ? 'bg-violet-500 text-white' : 'text-gray-900',
@@ -42,6 +42,12 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
-const props = defineProps(['menuItems'])
+    import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue';
+    const props = defineProps(['menuItems', 'apiEndpoint'])
+
+    const emit = defineEmits(['selected']);
+
+    const handleMenuItemClick = (item) => {
+        emit('selected', item);
+    };
 </script>
