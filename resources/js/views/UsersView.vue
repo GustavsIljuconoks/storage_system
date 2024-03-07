@@ -78,7 +78,13 @@
 
     const filteredUsers = computed(() => {
         if (!searchText.value) return users.value;
-        return users.value.filter(user => user.name.toLowerCase().includes(searchText.value.toLowerCase()));
+        const searchNumber = parseInt(searchText.value, 10);
+        return users.value.filter(user => {
+            if (!isNaN(searchNumber)) {
+                return user.id === searchNumber;
+            }
+            return user.name.toLowerCase().includes(searchText.value.toLowerCase());
+        });
     });
 
     onMounted(() => {
