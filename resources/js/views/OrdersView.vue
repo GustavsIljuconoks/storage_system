@@ -15,7 +15,7 @@
 <template>
     <PageLayout>
             <div>
-                <div class="container mx-auto mt-40 md:mt-0 space-y-2 md:space-y-0 md:flex justify-between items-center">
+                <div class="container mx-auto space-y-2 md:space-y-0 md:flex justify-between items-center">
                     <ul class="md:flex space-y-2 md:space-y-0 justify-start md:space-x-2 text-white">
                         <li>
                             <button

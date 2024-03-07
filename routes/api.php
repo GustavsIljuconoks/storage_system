@@ -22,8 +22,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/get-products', [ProductController::class, 'getProducts'])->name('products.all');
-Route::put('/update-product', [ProductController::class, 'updateProduct'])->name('product.update');
+Route::post('/add-product', [ProductController::class, 'addProduct'])->name('product.delete');
+Route::put('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('product.update');
 Route::delete('/delete-product', [ProductController::class, 'deleteProduct'])->name('product.delete');
+Route::get('/get-products/{id}', [ProductController::class, 'productDetails'])->name('product.delete');
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('order.make');
 Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('order.category');

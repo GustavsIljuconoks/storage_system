@@ -8,6 +8,7 @@ use App\Models\ProductCategory;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class ProductController extends Controller
 {
@@ -32,14 +33,39 @@ class ProductController extends Controller
         return response()->json($productInfo, 200);
     }
 
-    public function updateProduct(Request $request): JsonResponse
+    public function addProduct(Request $request): JsonResponse
     {
-        $productId = $request->productId;
+        $validatedData = $this->validate(request(), [
+            'name' => 'required | max:45',
+            'quantity_in_stock' => 'required | max:255',
+            'category_id' => 'required',
+        ]);
+
+        $postData = $request->post();
+        if ($postData === null) {
+            return response()->json("Invalid JSON data.", 400);
+        }
+
+        // Get request data
+        $product = new Product();
+        $product->name = $validatedData['name'];
+        $product->quantity_in_stock = $validatedData['quantity_in_stock'];
+        $product->category_id = $validatedData['category_id'];
+        $product->save();
+
+        return response()->json([
+            "message" => "Product added"
+        ], 200);
+    }
+
+    public function updateProduct(Request $request, $id): JsonResponse
+    {
+        // $productId = $request->productId;
         $userRoleId = $request->userRoleId;
 
-        if ($userRoleId === 1) {
-            if (Product::where('product_id', $productId)->exists()) {
-                $product = Product::find($productId);
+        if ($userRoleId === 1 || $userRoleId === 2) {
+            if (Product::where('product_id', $id)->exists()) {
+                $product = Product::find($id);
 
                 $product->update($request->all());
 
@@ -91,6 +117,19 @@ class ProductController extends Controller
         }
         return response()->json([
             "message" => "Missing administrator privileges"
+        ],404);
+    }
+
+    public function productDetails(Request $request, $id): JsonResponse
+    {
+        $product = Product::find($id);
+
+        if(!empty($product)) {
+            return response()->json($product);
+        }
+
+        return response()->json([
+            "message" => "Product not found"
         ],404);
     }
 }
