@@ -1,6 +1,6 @@
 <template>
-    <div class="flex items-center justify-center m-10">
-        <div class="w-full max-w-md px-2 py-16 sm:px-0">
+    <div class="flex items-center justify-center">
+        <div class="w-full max-w-md px-2 py-10 sm:px-0">
             <TabGroup>
                 <TabList class="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
                     <Tab
