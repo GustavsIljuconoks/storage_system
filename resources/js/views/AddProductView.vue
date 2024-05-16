@@ -95,6 +95,7 @@
     const success = ref(null)
     const showSuccess = ref(true);
 
+    const userId = parseInt(localStorage.getItem('userId'));
     const showMenu = ref(false);
     const categories = ref(false);
     const formData = ref<IFormData>({
@@ -120,7 +121,12 @@
     }
 
     const addProduct = async () => {
-        await axios.post('http://127.0.0.1:8000/api/add-product', formData.value)
+        await axios.post('http://127.0.0.1:8000/api/add-product', {
+            name: formData.value.name,
+            quantity_in_stock: formData.value.quantity_in_stock,
+            category_id: formData.value.category_id,
+            userId: userId,
+        })
             .then((response) => {
                 success.value = response.data.message || 'Product added sucessfully';
                 showSuccess.value = true;

@@ -26,6 +26,7 @@ Route::post('/add-product', [ProductController::class, 'addProduct'])->name('pro
 Route::put('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('product.update');
 Route::delete('/delete-product', [ProductController::class, 'deleteProduct'])->name('product.delete');
 Route::get('/get-products/{id}', [ProductController::class, 'productDetails'])->name('product.delete');
+Route::get('/log-products', [ProductController::class, 'logProducts'])->name('order.products');
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('order.make');
 Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('order.category');
