@@ -86,11 +86,11 @@
 
     const orderLogs = ref();
     const productLogs = ref();
+    const userLogs = ref();
 
     const orderLog = async () => {
         await axios.get('http://127.0.0.1:8000/api/log-order')
             .then((response) => {
-                console.log(response.data)
                 orderLogs.value = response.data;
             })
     }
@@ -98,18 +98,25 @@
     const productLog = async () => {
         await axios.get('http://127.0.0.1:8000/api/log-products')
             .then((response) => {
-                console.log(response.data)
                 productLogs.value = response.data;
+            })
+    }
+
+    const userLog = async () => {
+        await axios.get('http://127.0.0.1:8000/api/log-users')
+            .then((response) => {
+                userLogs.value = response.data;
             })
     }
 
     onMounted(() => {
         orderLog();
         productLog();
+        userLog();
     });
 
     const categories = ref({
-        Users: [],
+        Users: userLogs,
         Products: productLogs,
         Orders: orderLogs,
     })

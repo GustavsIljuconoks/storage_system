@@ -46,6 +46,7 @@ Route::get('/get-users', [UserController::class, 'getUsers'])->name('user.all');
 Route::delete('/delete-user', [UserController::class, 'deleteUser'])->name('user.delete');
 Route::get('/get-users/{id}', [UserController::class, 'detailsUser'])->name('user.update');
 Route::put('/update-user/{id}', [UserController::class, 'updateUser'])->name('user.update');
+Route::get('/log-users', [UserController::class, 'logUsers'])->name('user.logs');
 
 Route::group([
     "middleware" => ["auth:sanctum"]
