@@ -107,6 +107,8 @@
     const success = ref(null)
     const showSuccess = ref(true);
 
+    const userId = parseInt(localStorage.getItem('userId'));
+
     const getOrder = async () => {
         activeLink.value = 'all';
         await axios.get('http://127.0.0.1:8000/api/get-orders')
@@ -143,7 +145,8 @@
 
     const acceptOrder = async (orderId) => {
         await axios.put('http://127.0.0.1:8000/api/change-order-status', {
-            orderId: orderId
+            orderId: orderId,
+            userId: userId
         })
             .then((response) => {
                 getOrder();
@@ -157,7 +160,8 @@
     const deleteOrder = async (orderId) => {
         await axios.delete('http://127.0.0.1:8000/api/delete-order', {
             data: {
-                orderId: orderId
+                orderId: orderId,
+                userId: userId
             }
         })
             .then((response) => {

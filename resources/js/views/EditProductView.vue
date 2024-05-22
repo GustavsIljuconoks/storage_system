@@ -73,6 +73,7 @@
     const showSuccess = ref(true);
 
     const roleId = parseInt(localStorage.getItem('roleId'));
+    const userId = parseInt(localStorage.getItem('userId'));
     const showMenu = ref(false);
     const product = ref<[IProduct]>([]);
     const formData = ref<IFormData>({
@@ -101,7 +102,10 @@
             }
         }
 
-        await axios.put('http://127.0.0.1:8000/api/update-product/' + productId, requestData)
+        await axios.put('http://127.0.0.1:8000/api/update-product/' + productId, {
+            requestData,
+            userId: userId
+        })
             .then((response) => {
                 formData.value = {
                     name: '',

@@ -5,12 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class UserLogs extends Model
 {
     use HasFactory;
-
-    protected $table = 'products';
-    protected $primaryKey = 'product_id';
+    protected $primaryKey = 'log_id';
 
     /**
      * The attributes that are mass assignable.
@@ -18,13 +16,14 @@ class Product extends Model
      * @var array<int, string>
      */
     protected $fillable  = [
-        'name',
-        'quantity_in_stock',
-        'category_id',
+        'order_id',
+        'action',
+        'created_at',
+        'updated_at',
     ];
 
-    public function children()
+    public function parent()
     {
-        return $this->hasMany(OrderLogs::class);
+        return $this->belongsTo(User::class);
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderLogs;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductsLogs;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -46,12 +48,21 @@ class ProductController extends Controller
             return response()->json("Invalid JSON data.", 400);
         }
 
-        // Get request data
-        $product = new Product();
-        $product->name = $validatedData['name'];
-        $product->quantity_in_stock = $validatedData['quantity_in_stock'];
-        $product->category_id = $validatedData['category_id'];
-        $product->save();
+        $product = Product::create([
+            "name" => $validatedData['name'],
+            "quantity_in_stock" => $validatedData['quantity_in_stock'],
+            "category_id" => $request->category_id,
+        ]);
+
+        $productId = $product->product_id;
+
+        $newOrder = new ProductsLogs();
+        $newOrder->product_id = $productId;
+        $newOrder->user_id = $request->userId;
+        $newOrder->action = 'Created';
+        $newOrder->created_at = now();
+        $newOrder->updated_at = now();
+        $newOrder->save();
 
         return response()->json([
             "message" => "Product added"
@@ -61,7 +72,8 @@ class ProductController extends Controller
     public function updateProduct(Request $request, $id): JsonResponse
     {
         // $productId = $request->productId;
-        $userRoleId = $request->userRoleId;
+        $userRoleId = $request->requestData->userRoleId;
+        dd($userRoleId);
 
         if ($userRoleId === 1 || $userRoleId === 2) {
             if (Product::where('product_id', $id)->exists()) {
@@ -70,16 +82,24 @@ class ProductController extends Controller
                 $product->update($request->all());
 
                 if ($request->has('name')) {
-                    $product->name = $request->name;
+                    $product->name = $request->requestData->name;
                 }
 
                 if ($request->has('quantity_in_stock')) {
-                    $product->quantity_in_stock = $request->quantity_in_stock;
+                    $product->quantity_in_stock = $request->requestData->quantity_in_stock;
                 }
 
                 if ($request->has('category_id')) {
-                    $product->category_id = $request->category_id;
+                    $product->category_id = $request->requestData->category_id;
                 }
+
+                $newOrder = new ProductsLogs();
+                $newOrder->product_id = $id;
+                $newOrder->user_id = $request->userId;
+                $newOrder->action = 'Updated';
+                $newOrder->created_at = now();
+                $newOrder->updated_at = now();
+                $newOrder->save();
 
                 return response()->json([
                     "data" => $product,
@@ -131,5 +151,11 @@ class ProductController extends Controller
         return response()->json([
             "message" => "Product not found"
         ],404);
+    }
+
+    public function logProducts(): JsonResponse
+    {
+        $productsLogs = ProductsLogs::orderBy('created_at', 'asc')->get();
+        return response()->json($productsLogs,200);
     }
 }
