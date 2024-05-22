@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cell;
+use App\Models\Product;
 use App\Models\Shelf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,6 +38,23 @@ class ShelfController extends Controller
 
         return response()->json([
             "message" => "Place occupied"
+        ],404);
+    }
+
+    public function deleteItem(Request $request, $id): JsonResponse
+    {
+        $cell = Cell::find($id);
+
+        if($cell) {
+            $cell->delete();
+
+            return response()->json([
+                "success" => "Item removed from shelf successfully"
+            ],200);
+        }
+
+        return response()->json([
+            "message" => "Item not found"
         ],404);
     }
 }

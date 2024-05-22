@@ -47,7 +47,7 @@ Route::get('/get-users/{id}', [UserController::class, 'detailsUser'])->name('use
 Route::put('/update-user/{id}', [UserController::class, 'updateUser'])->name('user.update');
 
 Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
-Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
+Route::post('/delete-item/{3}', [ShelfController::class, 'deleteItem'])->name('shelve.delete');
 
 Route::group([
     "middleware" => ["auth:sanctum"]
