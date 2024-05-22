@@ -8,7 +8,7 @@
   <section class="dark:bg-gray-500">
     <div class="flex flex-col items-center justify-center px-6 mx-auto lg:py-0">
       <div
-        class="mt-5 -mb-10 w-full bg-blue-200 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+        class="mt-5 -mb-10 w-full bg-gray-50 rounded-lg shadow-md dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
       >
         <div class="p-6 space-y-0 md:space-y-6 sm:p-8">
           <h1
@@ -32,7 +32,7 @@
                 type="text"
                 name="name"
                 id="name"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="..."
               />
             </div>
@@ -47,7 +47,7 @@
                 type="text"
                 name="quantity"
                 id="quantity"
-                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                class="bg-gray-100 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="..."
               />
             </div>
@@ -57,7 +57,7 @@
               <Menu as="div" class="mb-2 relative inline-block text-left">
                 <div>
                   <MenuButton
-                    class="flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    class="flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     Category
                     <ChevronDownIcon
@@ -76,7 +76,7 @@
                   leave-to-class="transform opacity-0 scale-95"
                 >
                   <MenuItems
-                    class="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
                   >
                     <div class="py-1">
                       <MenuItem
@@ -87,14 +87,14 @@
                         <label
                           :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm',
+                            'block px-4 py-2 text-sm cursor-pointer',
                           ]"
                         >
                           <input
                             type="radio"
                             v-model="formData.category_id"
                             :value="category.category_id"
-                            class="mr-2"
+                            class="mr-2 cursor-pointer"
                           />
                           {{ category.name }}
                         </label>
@@ -108,7 +108,7 @@
               <Menu as="div" class="mb-2 relative inline-block text-left">
                 <div>
                   <MenuButton
-                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     Shelf
                     <ChevronDownIcon
@@ -127,7 +127,7 @@
                   leave-to-class="transform opacity-0 scale-95"
                 >
                   <MenuItems
-                    class="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
                   >
                     <div class="py-1">
                       <MenuItem
@@ -138,14 +138,14 @@
                         <label
                           :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm',
+                            'block px-4 py-2 text-sm cursor-pointer',
                           ]"
                         >
                           <input
                             type="radio"
                             v-model="formData.shelf_id"
                             :value="shelf.shelf_id"
-                            class="mr-2"
+                            class="mr-2 cursor-pointer"
                           />
                           {{ shelf.shelf_id }}
                         </label>
@@ -159,7 +159,7 @@
               <Menu as="div" class="mb-2 relative inline-block text-left">
                 <div>
                   <MenuButton
-                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     Column
                     <ChevronDownIcon
@@ -178,7 +178,7 @@
                   leave-to-class="transform opacity-0 scale-95"
                 >
                   <MenuItems
-                    class="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
                   >
                     <div class="py-1">
                       <MenuItem
@@ -189,12 +189,12 @@
                         <label
                           :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm',
+                            'block px-4 py-2 text-sm cursor-pointer',
                           ]"
                         >
                           <input
                             type="radio"
-                            class="mr-2"
+                            class="mr-2 cursor-pointer"
                             :value="i"
                             v-model="selectedColumn"
                           />
@@ -210,7 +210,7 @@
               <Menu as="div" class="mb-2 relative inline-block text-left">
                 <div>
                   <MenuButton
-                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
                     Column
                     <ChevronDownIcon
@@ -229,7 +229,7 @@
                   leave-to-class="transform opacity-0 scale-95"
                 >
                   <MenuItems
-                    class="absolute right-0 z-10 mt-2 w-full origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
                   >
                     <div class="py-1">
                       <MenuItem
@@ -240,12 +240,12 @@
                         <label
                           :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                            'block px-4 py-2 text-sm',
+                            'block px-4 py-2 text-sm cursor-pointer',
                           ]"
                         >
                           <input
                             type="radio"
-                            class="mr-2"
+                            class="mr-2 cursor-pointer"
                             :value="i"
                             v-model="selectedRow"
                           />
@@ -259,7 +259,7 @@
             </div>
             <button
               type="submit"
-              class="w-full text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              class="w-full text-white bg-emerald-600 hover:bg-emerald-500 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Add Product
             </button>
