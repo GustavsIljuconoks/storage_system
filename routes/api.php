@@ -27,6 +27,7 @@ Route::post('/add-product', [ProductController::class, 'addProduct'])->name('pro
 Route::put('/update-product/{id}', [ProductController::class, 'updateProduct'])->name('product.update');
 Route::delete('/delete-product', [ProductController::class, 'deleteProduct'])->name('product.delete');
 Route::get('/get-products/{id}', [ProductController::class, 'productDetails'])->name('product.delete');
+Route::get('/log-products', [ProductController::class, 'logProducts'])->name('order.products');
 
 Route::post('/make-order', [OrderController::class, 'makeOrder'])->name('order.make');
 Route::get('/get-categories', [OrderController::class, 'getCategories'])->name('order.category');
@@ -37,6 +38,7 @@ Route::put('/change-order-status', [OrderController::class, 'changeOrderStatus']
 Route::delete('/delete-order', [OrderController::class, 'deleteOrder'])->name('order.destroy');
 Route::get('/pending-order', [OrderController::class, 'getPendingOrders'])->name('order.pending');
 Route::get('/delivered-order', [OrderController::class, 'getDeliveredOrders'])->name('order.pending');
+Route::get('/log-order', [OrderController::class, 'logOrder'])->name('order.log');
 
 Route::post('/login', [UserController::class, 'login'])->name('user.login');
 Route::post('/register', [UserController::class, 'register'])->name('user.register');
@@ -45,6 +47,7 @@ Route::get('/get-users', [UserController::class, 'getUsers'])->name('user.all');
 Route::delete('/delete-user', [UserController::class, 'deleteUser'])->name('user.delete');
 Route::get('/get-users/{id}', [UserController::class, 'detailsUser'])->name('user.update');
 Route::put('/update-user/{id}', [UserController::class, 'updateUser'])->name('user.update');
+Route::get('/log-users', [UserController::class, 'logUsers'])->name('user.logs');
 
 Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
 Route::post('/delete-item/{id}', [ShelfController::class, 'deleteItem'])->name('shelve.delete');
