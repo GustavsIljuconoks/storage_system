@@ -12,6 +12,8 @@ return new class extends Migration {
     {
         Schema::create('cells', function (Blueprint $table) {
             $table->id('cell_id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('shelf_id');
             $table->integer('column')->nullable();
             $table->integer('row')->nullable();
             $table->boolean('is_occupied')->default(false);
