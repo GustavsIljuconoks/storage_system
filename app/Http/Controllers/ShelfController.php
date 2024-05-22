@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cell;
-use App\Models\Product;
 use App\Models\Shelf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

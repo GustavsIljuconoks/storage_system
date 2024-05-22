@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cell;
 use App\Models\Order;
 use App\Models\OrderLogs;
 use App\Models\Product;
@@ -124,6 +125,12 @@ class ProductController extends Controller
         if ($userRoleId === 1) {
             if(Product::where('product_id', $productId)->exists()) {
                 $product = Product::find($productId);
+
+                $cell = Cell::find($request->cellId);
+                if($cell) {
+                    $cell->delete();
+                }
+
                 $product->delete();
 
                 return response()->json([
