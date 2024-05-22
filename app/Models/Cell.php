@@ -9,7 +9,9 @@ class Cell extends Model
 {
     use HasFactory;
 
-    protected $table = 'cell';
+    protected $table = 'cells';
+
+    protected $primaryKey = 'cell_id';
 
     /**
      * The attributes that are mass assignable.
