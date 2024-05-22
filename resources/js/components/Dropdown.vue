@@ -32,7 +32,7 @@
         leave-to-class="transform scale-95 opacity-0"
       >
         <MenuItems
-          class="fixed mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+          class="fixed mt-2 w-56 h-24 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none overflow-y-auto overflow-x-hidden"
         >
           <div class="px-1 py-1">
             <MenuItem
