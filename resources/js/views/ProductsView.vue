@@ -2,7 +2,7 @@
     <PageLayout>
         <!-- Search input and buttons -->
         <div class="flex flex-col gap-3 items-stretch md:flex-row justify-between">
-            <Search @update:search="searchText = $event"/>
+            <Search placeholderText="Search Product" @update:search="searchText = $event"/>
             <div class="flex justify-end ml-0 md:ml-2">
                 <router-link :to="{name: 'addproduct'}" 
                     class="shadow-md bg-green-500 hover:bg-green-600 text-white text-md px-4 py-2 w-full md:w-auto rounded-lg flex items-center justify-center">
@@ -21,9 +21,10 @@
                         <tr class="bg-gray-200">
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shelf</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Column</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Row</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
                         </tr>
@@ -33,9 +34,10 @@
                         <tr v-for="product in filteredProducts" :key="product.product_id">
                             <td class="font-bold px-6 py-4 whitespace-nowrap">{{ product.product_id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ product.category }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.quantity_in_stock }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ product.category }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.shelf }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ product.column }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.row }}</td>
                             <td class="flex flex-col gap-1 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">
                                 <router-link :to="{name: 'editproduct', params: { id: product.product_id }}" class="shadow-md bg-blue-600 hover:bg-blue-800 p-3 px-6 rounded text-white text-center">Edit</router-link>

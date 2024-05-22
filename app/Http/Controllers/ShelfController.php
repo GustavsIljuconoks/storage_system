@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 
 class ShelfController extends Controller
 {
+    public function getAllShelfes(): JsonResponse
+    {
+        $shelves = Shelf::all();
+
+        return response()->json([
+            "data" => $shelves,
+            "message" => "Shelfes retrieved successfully"
+        ], 200);
+    }
+
     public function putItem(Request $request): JsonResponse
     {
         $productId = $request->productId;
@@ -18,7 +28,7 @@ class ShelfController extends Controller
 
         $shelf = Shelf::select('shelf_id', 'column', 'row')->first();
 
-        if($shelf->shelf_id == $shelfId) {
+        if ($shelf->shelf_id == $shelfId) {
             if ($row <= $shelf->row && $column <= $shelf->column) {
 
                 $cellFree = Cell::class
@@ -26,7 +36,7 @@ class ShelfController extends Controller
                     ->where('column', $column)
                     ->where('occupied', '0');
 
-                if($cellFree) {
+                if ($cellFree) {
                     $cell = new Cell();
                     $cell->shelf_id = $request->shelfId;
                     $cell->product_id = $productId;
@@ -43,12 +53,12 @@ class ShelfController extends Controller
 
                 return response()->json([
                     "message" => "Place occupied"
-                ],404);
+                ], 404);
             }
 
             return response()->json([
                 "message" => "Place doesn't exist"
-            ],404);
+            ], 404);
         }
     }
 
@@ -56,16 +66,16 @@ class ShelfController extends Controller
     {
         $cell = Cell::find($request->cellId);
 
-        if($cell) {
+        if ($cell) {
             $cell->delete();
 
             return response()->json([
                 "message" => "Item removed from shelf successfully"
-            ],200);
+            ], 200);
         }
 
         return response()->json([
             "message" => "Item not found"
-        ],404);
+        ], 404);
     }
 }
