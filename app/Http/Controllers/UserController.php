@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductsLogs;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\UserLogs;
 use App\Models\UserRoles;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -51,12 +53,21 @@ class UserController extends Controller
             "role_id" => "required"
         ]);
 
-        User::create([
+        $newUser = User::create([
             "name" => $request->name,
             "email" => $request->email,
             "password" => Hash::make($request->password),
             "role_id" => $request->role_id
         ]);
+
+        $productId = $newUser->id;
+
+        $userLog = new UserLogs();
+        $userLog->user_id = $productId;
+        $userLog->action = 'Created';
+        $userLog->created_at = now();
+        $userLog->updated_at = now();
+        $userLog->save();
 
         return response()->json([
             "message" => "User registered succesfully"
@@ -138,10 +149,23 @@ class UserController extends Controller
 
             $user->update($request->all());
 
+            $userLog = new UserLogs();
+            $userLog->user_id = $id;
+            $userLog->action = 'Updated';
+            $userLog->created_at = now();
+            $userLog->updated_at = now();
+            $userLog->save();
+
             return response()->json([
                 "data" => $user,
                 "message" => "User updated successfully"
             ], 200);
         }
+    }
+
+    public function logUsers(): JsonResponse
+    {
+        $productsLogs = UserLogs::orderBy('created_at', 'asc')->get();
+        return response()->json($productsLogs,200);
     }
 }
