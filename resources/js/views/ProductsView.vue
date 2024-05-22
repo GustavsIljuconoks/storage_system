@@ -33,8 +33,8 @@
                         <tr v-for="product in filteredProducts" :key="product.product_id">
                             <td class="font-bold px-6 py-4 whitespace-nowrap">{{ product.product_id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.name }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap">{{ product.quantity_in_stock }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.category }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">{{ product.quantity_in_stock }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.shelf }}</td>
                             <td class="px-6 py-4 whitespace-nowrap">{{ product.row }}</td>
                             <td class="flex flex-col gap-1 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium">

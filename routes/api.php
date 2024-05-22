@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\UserController;
 use \App\Http\Controllers\ProductController;
 use \App\Http\Controllers\OrderController;
+use \App\Http\Controllers\ShelfController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::get('/get-users', [UserController::class, 'getUsers'])->name('user.all');
 Route::delete('/delete-user', [UserController::class, 'deleteUser'])->name('user.delete');
 Route::get('/get-users/{id}', [UserController::class, 'detailsUser'])->name('user.update');
 Route::put('/update-user/{id}', [UserController::class, 'updateUser'])->name('user.update');
+
+Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
+Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
 
 Route::group([
     "middleware" => ["auth:sanctum"]
