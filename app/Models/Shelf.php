@@ -9,7 +9,7 @@ class Shelf extends Model
 {
     use HasFactory;
 
-    protected $table = 'shelves';
+    protected $table = 'shelfes';
 
     /**
      * The attributes that are mass assignable.

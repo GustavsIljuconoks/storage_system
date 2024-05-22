@@ -14,30 +14,42 @@ class ShelfController extends Controller
         $productId = $request->productId;
         $row = $request->row;
         $column = $request->column;
+        $shelfId = $request->shelfId;
 
-        $cellFree = Cell::class
+        $shelf = Shelf::select('shelf_id', 'column', 'row')->first();
+
+        if($shelf->shelf_id == $shelfId) {
+            if ($row <= $shelf->row && $column <= $shelf->column) {
+
+                $cellFree = Cell::class
                     ->where('row', $row)
                     ->where('column', $column)
                     ->where('occupied', '0');
 
-        if($cellFree) {
-            $cell = new Cell();
-            $cell->shelf_id = $request->shelfId;
-            $cell->product_id = $productId;
-            $cell->column = $column;
-            $cell->row = $row;
-            $cell->is_occupied = true;
-            $cell->save();
+                if($cellFree) {
+                    $cell = new Cell();
+                    $cell->shelf_id = $request->shelfId;
+                    $cell->product_id = $productId;
+                    $cell->column = $column;
+                    $cell->row = $row;
+                    $cell->is_occupied = true;
+                    $cell->save();
+
+                    return response()->json([
+                        "data" => $cell,
+                        "message" => "Item placed successfully"
+                    ], 200);
+                }
+
+                return response()->json([
+                    "message" => "Place occupied"
+                ],404);
+            }
 
             return response()->json([
-                "data" => $cell,
-                "message" => "Item placed successfully"
-            ], 200);
+                "message" => "Place doesn't exist"
+            ],404);
         }
-
-        return response()->json([
-            "message" => "Place occupied"
-        ],404);
     }
 
     public function deleteItem(Request $request, $id): JsonResponse

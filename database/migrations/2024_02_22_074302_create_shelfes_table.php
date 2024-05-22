@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('shelfes', function (Blueprint $table) {
             $table->id('shelf_id');
-            $table->string('column');
-            $table->string('row');
+            $table->integer('column');
+            $table->integer('row');
             $table->timestamps();
         });
     }
