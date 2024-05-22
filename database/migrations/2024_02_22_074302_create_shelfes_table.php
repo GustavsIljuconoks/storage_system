@@ -10,8 +10,8 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('shelves', function (Blueprint $table) {
-            $table->id('shelve_id');
+        Schema::create('shelfes', function (Blueprint $table) {
+            $table->id('shelf_id');
             $table->string('column');
             $table->string('row');
             $table->timestamps();
