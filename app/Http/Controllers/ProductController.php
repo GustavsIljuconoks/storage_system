@@ -72,9 +72,7 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request, $id): JsonResponse
     {
-        // $productId = $request->productId;
         $userRoleId = $request->requestData->userRoleId;
-        dd($userRoleId);
 
         if ($userRoleId === 1 || $userRoleId === 2) {
             if (Product::where('product_id', $id)->exists()) {

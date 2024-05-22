@@ -60,10 +60,9 @@ class UserController extends Controller
             "role_id" => $request->role_id
         ]);
 
-        $productId = $newUser->id;
-
         $userLog = new UserLogs();
-        $userLog->user_id = $productId;
+        $userLog->created_id = $newUser->user_id;
+        $userLog->user_id = $request->creator;
         $userLog->action = 'Created';
         $userLog->created_at = now();
         $userLog->updated_at = now();
@@ -115,7 +114,7 @@ class UserController extends Controller
     {
         $userId = $request->userId;
 
-        if(User::where('id', $userId)->exists()) {
+        if(User::where('user_id', $userId)->exists()) {
             $user = User::find($userId);
             $user->delete();
 

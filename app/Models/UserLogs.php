@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class UserLogs extends Model
 {
     use HasFactory;
+
+    protected $table = 'user_logs';
     protected $primaryKey = 'log_id';
 
     /**
@@ -18,6 +20,7 @@ class UserLogs extends Model
     protected $fillable  = [
         'order_id',
         'action',
+        'created_id',
         'created_at',
         'updated_at',
     ];

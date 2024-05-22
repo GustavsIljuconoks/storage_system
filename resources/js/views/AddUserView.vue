@@ -152,8 +152,12 @@
             })
     }
 
+    const creator = localStorage.getItem('userId');
     const registerNewUser = async () => {
-        await axios.post('http://127.0.0.1:8000/api/register', formData.value)
+        await axios.post('http://127.0.0.1:8000/api/register', {
+            ...formData.value,
+            creator: creator
+        })
             .then((response) => {
                 success.value = response.data.message || 'Success';
                 showSuccess.value = true;

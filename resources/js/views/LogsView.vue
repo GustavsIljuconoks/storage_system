@@ -53,6 +53,9 @@
                                         Product ID: {{ post.product_id }}
                                     </DisclosurePanel>
 
+                                    <DisclosurePanel class="px-4 pt-4 text-sm text-gray-500" v-if="post.created_id">
+                                        Created ID: {{ post.created_id }}
+                                    </DisclosurePanel>
 <!--                                    End here-->
 
                                     <DisclosurePanel class="px-4 pt-4 text-sm text-gray-500">
