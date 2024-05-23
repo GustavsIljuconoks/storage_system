@@ -1,7 +1,7 @@
 <template>
-  <section class="dark:bg-gray-900">
+  <section class="dark:bg-gray-900 w-full flex items-center justify-center min-h-screen">
     <div
-      class="flex flex-col items-center justify-center mt-10 px-4 md:px-0 mx-auto lg:py-0"
+      class="w-full flex flex-col items-center justify-center -mt-10 px-4 md:px-0 mx-auto lg:py-0"
     >
       <div
         class="w-full bg-gray-100 rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
