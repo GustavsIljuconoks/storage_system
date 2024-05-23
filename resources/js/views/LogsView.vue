@@ -30,7 +30,9 @@
             :class="['rounded-xl bg-white p-3']"
           >
             <div class="w-full px-4" v-for="post in posts">
-              <div class="shadow-md mx-auto w-full max-w-md rounded-2xl bg-white p-2">
+              <div
+                class="shadow-md mx-auto w-full max-w-md rounded-2xl bg-white p-2 mb-2"
+              >
                 <Disclosure as="div" class="mt-2" v-slot="{ open }">
                   <DisclosureButton
                     class="flex w-full justify-between rounded-lg bg-gray-200 px-4 py-2 text-left text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-gray-500/75"
@@ -44,10 +46,11 @@
 
                   <!--                                    Conditional renders-->
                   <DisclosurePanel
-                    class="px-4 pt-4 text-sm text-gray-500"
+                    class="flex px-4 pt-4 text-sm text-gray-500"
                     v-if="post.order_id"
                   >
-                    Order ID: {{ post.order_id }}
+                    <p class="mr-1 font-bold">Order ID:</p>
+                    {{ post.order_id }}
                   </DisclosurePanel>
 
                   <DisclosurePanel
