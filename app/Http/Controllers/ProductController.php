@@ -66,7 +66,8 @@ class ProductController extends Controller
         $newOrder->save();
 
         return response()->json([
-            "message" => "Product added"
+            "message" => "Product added",
+            "product" => $product
         ], 200);
     }
 

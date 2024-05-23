@@ -240,7 +240,7 @@
                   <MenuButton
                     class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                   >
-                    Column
+                    Row
                     <ChevronDownIcon
                       class="-mr-1 h-5 w-5 text-gray-400"
                       aria-hidden="true"
@@ -313,11 +313,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed, watchEffect } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import AlertMessage from "@/components/AlertMessage.vue";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+import { useRouter } from "vue-router";
 
 interface IFormData {
   name: string;
@@ -326,6 +327,7 @@ interface IFormData {
   shelf_id: number;
 }
 
+const router = useRouter();
 const error = ref(null);
 const showError = ref(true);
 const success = ref(null);
@@ -368,29 +370,51 @@ const getCategories = async () => {
 };
 
 const addProduct = async () => {
-  await axios
-    .post("http://127.0.0.1:8000/api/add-product", {
-      name: formData.value.name,
-      quantity_in_stock: formData.value.quantity_in_stock,
-      category_id: formData.value.category_id,
-      userId: userId,
-    })
-    .then((response) => {
-      success.value = response.data.message || "Product added sucessfully";
-      showSuccess.value = true;
+    const productData = {
+        name: formData.value.name,
+        quantity_in_stock: formData.value.quantity_in_stock,
+        category_id: formData.value.category_id,
+        userId: userId,
+    };
 
-      setTimeout(() => {
-        showSuccess.value = false;
-      }, 2000);
-    })
-    .catch((err) => {
-      error.value = err.response.data.message || "An error occurred.";
+    try {
+        const response1 = await axios.post("http://127.0.0.1:8000/api/add-product", productData)
+        const productId = response1.data.product.product_id
 
-      showError.value = true;
-      setTimeout(() => {
-        showError.value = false;
-      }, 2000);
-    });
+        const response2 = await axios.post("http://127.0.0.1:8000/api/put-item", {
+            userId: userId,
+            productId: productId,
+            shelfId: formData.value.shelf_id,
+            column: selectedColumn.value,
+            row: selectedRow.value
+        })
+            .catch((error) => {
+                console.log(error)
+                error.value = error.response.data.message || "An error occurred.";
+
+                showError.value = true;
+                setTimeout(() => {
+                    showError.value = false;
+                }, 2000);
+            })
+
+        success.value = response1.data.message || response2.data.message || "Product added successfully";
+        showSuccess.value = true;
+
+        setTimeout(() => {
+            showSuccess.value = false;
+        }, 2000);
+
+        router.push({ name: "products" });
+
+    } catch (error) {
+        error.value = error.response.data.message || "An error occurred.";
+
+        showError.value = true;
+        setTimeout(() => {
+            showError.value = false;
+        }, 2000);
+    }
 };
 
 onMounted(() => {

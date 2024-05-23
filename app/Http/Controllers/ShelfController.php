@@ -26,38 +26,38 @@ class ShelfController extends Controller
         $column = $request->column;
         $shelfId = $request->shelfId;
 
-        $shelf = Shelf::select('shelf_id', 'column', 'row')->first();
 
-        if ($shelf->shelf_id == $shelfId) {
-            if ($row <= $shelf->row && $column <= $shelf->column) {
+        $shelves = Shelf::select('shelf_id', 'column', 'row')->get();
+        $shelf = $shelves->firstWhere('shelf_id', $shelfId);
 
-                $cellFree = Cell::class
-                    ->where('row', $row)
-                    ->where('column', $column)
-                    ->where('occupied', '0');
+        if (!$shelf) {
+            return response()->json([
+                "message" => "Invalid shelfId"
+            ], 400);
+        }
 
-                if ($cellFree) {
-                    $cell = new Cell();
-                    $cell->shelf_id = $request->shelfId;
-                    $cell->product_id = $productId;
-                    $cell->column = $column;
-                    $cell->row = $row;
-                    $cell->is_occupied = true;
-                    $cell->save();
+        if ($row <= $shelf->row && $column <= $shelf->column) {
+            $cellOccupied = Cell::where('row', $row)
+                        ->where('column', $column)
+                        ->exists();
 
-                    return response()->json([
-                        "data" => $cell,
-                        "message" => "Item placed successfully"
-                    ], 200);
-                }
+            if (!$cellOccupied) {
+                $cell = new Cell();
+                $cell->shelf_id = $request->shelfId;
+                $cell->product_id = $productId;
+                $cell->column = $column;
+                $cell->row = $row;
+                $cell->is_occupied = true;
+                $cell->save();
 
                 return response()->json([
-                    "message" => "Place occupied"
-                ], 404);
+                    "data" => $cell,
+                    "message" => "Item placed successfully"
+                ], 200);
             }
 
             return response()->json([
-                "message" => "Place doesn't exist"
+                "message" => "Place occupied"
             ], 404);
         }
     }
