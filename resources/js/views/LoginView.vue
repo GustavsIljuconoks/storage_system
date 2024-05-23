@@ -96,7 +96,7 @@ const login = async () => {
       localStorage.setItem("userId", response.data.userId);
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
-      router.push({ name: "home" });
+      router.push({ name: "users" });
     })
     .catch((err) => {
       error.value = err.response.data.message || "An error occurred.";
