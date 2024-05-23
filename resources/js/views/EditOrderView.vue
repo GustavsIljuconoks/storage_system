@@ -6,7 +6,9 @@
 
 <template>
   <section class="dark:bg-gray-500">
-    <div class="flex flex-col items-center justify-center px-6 mx-auto lg:py-0">
+    <div
+      class="flex flex-col items-center justify-center px-6 p-4 md:p-0 mx-auto lg:py-0"
+    >
       <div
         class="mt-5 -mb-10 w-full bg-gray-100 rounded-lg shadow dark:border sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
       >
