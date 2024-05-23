@@ -62,7 +62,7 @@
             <td class="font-bold px-6 py-4 whitespace-nowrap">{{ user.id }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ user.name }}</td>
             <td class="px-6 py-4 whitespace-nowrap">{{ user.role }}</td>
-            <td class="px-6 py-4 whitespace-nowrap">{{ user.lastorder }}</td>
+            <td class="px-6 py-4 whitespace-nowrap">{{ user.orderId }}</td>
             <td
               class="flex flex-col gap-2 md:flex-row space-y-2 md:space-y-0 pr-3 p-2 justify-end text-right text-sm font-medium"
             >
