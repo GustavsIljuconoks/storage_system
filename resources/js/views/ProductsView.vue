@@ -196,9 +196,16 @@ const filteredProducts = computed(() => {
     const searchNumber = parseInt(searchText.value, 10);
     return products.value.filter(product => {
         if (!isNaN(searchNumber)) {
-            return product.product_id === searchNumber || product.quantity_in_stock === searchNumber;
+            return product.product_id === searchNumber ||
+                   product.quantity_in_stock === searchNumber ||
+                   product.shelf === searchNumber ||
+                   product.column === searchNumber ||
+                   product.row === searchNumber;
         }
-        return product.name.toLowerCase().includes(searchText.value.toLowerCase());
+        return product.name.toLowerCase().includes(searchText.value.toLowerCase()) ||
+               (product.shelf && product.shelf.toLowerCase().includes(searchText.value.toLowerCase())) ||
+               (product.column && product.column.toLowerCase().includes(searchText.value.toLowerCase())) ||
+               (product.row && product.row.toLowerCase().includes(searchText.value.toLowerCase()));
     });
 });
 
