@@ -15,7 +15,6 @@
             class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
             Edit Product
-            <span class="mb-2 text-purple-900 font-medium">"{{ product.name }}"</span>
           </h1>
 
           <AlertMessage :message="error" :show="showError" type="error" />
@@ -91,160 +90,160 @@
               />
             </div>
 
-              <div class="flex flex-col">
-                  <!-- Shelf dropdown button -->
-                  <Menu as="div" class="mb-2 relative inline-block text-left">
-                      <div>
-                          <MenuButton
-                              class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                          >
-                              Shelf
-                              <ChevronDownIcon
-                                  class="-mr-1 h-5 w-5 text-gray-400"
-                                  aria-hidden="true"
-                              />
-                          </MenuButton>
-                      </div>
+            <div class="flex flex-col">
+              <!-- Shelf dropdown button -->
+              <Menu as="div" class="mb-2 relative inline-block text-left">
+                <div>
+                  <MenuButton
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  >
+                    Shelf
+                    <ChevronDownIcon
+                      class="-mr-1 h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </MenuButton>
+                </div>
 
-                      <transition
-                          enter-active-class="transition ease-out duration-100"
-                          enter-from-class="transform opacity-0 scale-95"
-                          enter-to-class="transform opacity-100 scale-100"
-                          leave-active-class="transition ease-in duration-75"
-                          leave-from-class="transform opacity-100 scale-100"
-                          leave-to-class="transform opacity-0 scale-95"
+                <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-from-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-from-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                >
+                  <MenuItems
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
+                  >
+                    <div class="py-1">
+                      <MenuItem
+                        v-for="shelf in shelves"
+                        :key="shelf.id"
+                        v-slot="{ active }"
                       >
-                          <MenuItems
-                              class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
-                          >
-                              <div class="py-1">
-                                  <MenuItem
-                                      v-for="shelf in shelves"
-                                      :key="shelf.id"
-                                      v-slot="{ active }"
-                                  >
-                                      <label
-                                          :class="[
+                        <label
+                          :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                             'block px-4 py-2 text-sm cursor-pointer',
                           ]"
-                                      >
-                                          <input
-                                              type="radio"
-                                              v-model="formData.shelf_id"
-                                              :value="shelf.shelf_id"
-                                              class="mr-2 cursor-pointer"
-                                          />
-                                          {{ shelf.shelf_id }}
-                                      </label>
-                                  </MenuItem>
-                              </div>
-                          </MenuItems>
-                      </transition>
-                  </Menu>
+                        >
+                          <input
+                            type="radio"
+                            v-model="formData.shelf_id"
+                            :value="shelf.shelf_id"
+                            class="mr-2 cursor-pointer"
+                          />
+                          {{ shelf.shelf_id }}
+                        </label>
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+                </transition>
+              </Menu>
 
-                  <!-- Selected shelf's column dropdown button -->
-                  <Menu as="div" class="mb-2 relative inline-block text-left">
-                      <div>
-                          <MenuButton
-                              class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                          >
-                              Column
-                              <ChevronDownIcon
-                                  class="-mr-1 h-5 w-5 text-gray-400"
-                                  aria-hidden="true"
-                              />
-                          </MenuButton>
-                      </div>
+              <!-- Selected shelf's column dropdown button -->
+              <Menu as="div" class="mb-2 relative inline-block text-left">
+                <div>
+                  <MenuButton
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  >
+                    Column
+                    <ChevronDownIcon
+                      class="-mr-1 h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </MenuButton>
+                </div>
 
-                      <transition
-                          enter-active-class="transition ease-out duration-100"
-                          enter-from-class="transform opacity-0 scale-95"
-                          enter-to-class="transform opacity-100 scale-100"
-                          leave-active-class="transition ease-in duration-75"
-                          leave-from-class="transform opacity-100 scale-100"
-                          leave-to-class="transform opacity-0 scale-95"
+                <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-from-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-from-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                >
+                  <MenuItems
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
+                  >
+                    <div class="py-1">
+                      <MenuItem
+                        v-for="i in parseInt(selectedShelf?.column)"
+                        :key="i"
+                        v-slot="{ active }"
                       >
-                          <MenuItems
-                              class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
-                          >
-                              <div class="py-1">
-                                  <MenuItem
-                                      v-for="i in parseInt(selectedShelf?.column)"
-                                      :key="i"
-                                      v-slot="{ active }"
-                                  >
-                                      <label
-                                          :class="[
+                        <label
+                          :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                             'block px-4 py-2 text-sm cursor-pointer',
                           ]"
-                                      >
-                                          <input
-                                              type="radio"
-                                              class="mr-2 cursor-pointer"
-                                              :value="i"
-                                              v-model="selectedColumn"
-                                          />
-                                          {{ i }}
-                                      </label>
-                                  </MenuItem>
-                              </div>
-                          </MenuItems>
-                      </transition>
-                  </Menu>
+                        >
+                          <input
+                            type="radio"
+                            class="mr-2 cursor-pointer"
+                            :value="i"
+                            v-model="selectedColumn"
+                          />
+                          {{ i }}
+                        </label>
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+                </transition>
+              </Menu>
 
-                  <!-- Selected shelf's row dropdown button -->
-                  <Menu as="div" class="mb-2 relative inline-block text-left">
-                      <div>
-                          <MenuButton
-                              class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                          >
-                              Row
-                              <ChevronDownIcon
-                                  class="-mr-1 h-5 w-5 text-gray-400"
-                                  aria-hidden="true"
-                              />
-                          </MenuButton>
-                      </div>
+              <!-- Selected shelf's row dropdown button -->
+              <Menu as="div" class="mb-2 relative inline-block text-left">
+                <div>
+                  <MenuButton
+                    class="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                  >
+                    Row
+                    <ChevronDownIcon
+                      class="-mr-1 h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </MenuButton>
+                </div>
 
-                      <transition
-                          enter-active-class="transition ease-out duration-100"
-                          enter-from-class="transform opacity-0 scale-95"
-                          enter-to-class="transform opacity-100 scale-100"
-                          leave-active-class="transition ease-in duration-75"
-                          leave-from-class="transform opacity-100 scale-100"
-                          leave-to-class="transform opacity-0 scale-95"
+                <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-from-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-from-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                >
+                  <MenuItems
+                    class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
+                  >
+                    <div class="py-1">
+                      <MenuItem
+                        v-for="i in parseInt(selectedShelf?.row)"
+                        :key="i"
+                        v-slot="{ active }"
                       >
-                          <MenuItems
-                              class="absolute right-0 z-10 mt-2 w-full h-28 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none overflow-y-auto overflow-x-hidden"
-                          >
-                              <div class="py-1">
-                                  <MenuItem
-                                      v-for="i in parseInt(selectedShelf?.row)"
-                                      :key="i"
-                                      v-slot="{ active }"
-                                  >
-                                      <label
-                                          :class="[
+                        <label
+                          :class="[
                             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                             'block px-4 py-2 text-sm cursor-pointer',
                           ]"
-                                      >
-                                          <input
-                                              type="radio"
-                                              class="mr-2 cursor-pointer"
-                                              :value="i"
-                                              v-model="selectedRow"
-                                          />
-                                          {{ i }}
-                                      </label>
-                                  </MenuItem>
-                              </div>
-                          </MenuItems>
-                      </transition>
-                  </Menu>
-              </div>
+                        >
+                          <input
+                            type="radio"
+                            class="mr-2 cursor-pointer"
+                            :value="i"
+                            v-model="selectedRow"
+                          />
+                          {{ i }}
+                        </label>
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+                </transition>
+              </Menu>
+            </div>
 
             <button
               type="submit"
@@ -290,7 +289,7 @@ interface IFormData {
   name: string;
   quantity_in_stock: number;
   userRoleId: number;
-  shelf_id: number
+  shelf_id: number;
 }
 
 const error = ref(null);
@@ -314,16 +313,16 @@ const selectedColumn = ref(null);
 const selectedRow = ref(null);
 
 const selectedShelf = computed(() => {
-    return shelves.value.find((shelf) => shelf.shelf_id === formData.value.shelf_id);
+  return shelves.value.find((shelf) => shelf.shelf_id === formData.value.shelf_id);
 });
 
 const getShelves = async () => {
-    try {
-        const response = await axios.get("http://127.0.0.1:8000/api/get-shelfes");
-        shelves.value = response.data.data;
-    } catch (error) {
-        console.error(error);
-    }
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/get-shelfes");
+    shelves.value = response.data.data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const productDetail = async () => {
@@ -338,63 +337,65 @@ const productDetail = async () => {
 };
 
 const updateProduct = async (productId: number) => {
-    // Get those fields which are filled
-    const requestData = {};
-    for (const key in formData.value) {
-        if (formData.value[key]) {
-            requestData[key] = formData.value[key];
-        }
+  // Get those fields which are filled
+  const requestData = {};
+  for (const key in formData.value) {
+    if (formData.value[key]) {
+      requestData[key] = formData.value[key];
     }
+  }
 
-    const response1 = await axios.put("http://127.0.0.1:8000/api/update-product/" + productId, {
-          requestData,
-          userId: userId,
+  const response1 = await axios
+    .put("http://127.0.0.1:8000/api/update-product/" + productId, {
+      requestData,
+      userId: userId,
     })
-        .then((response) => {
-            formData.value = {
-                name: "",
-                quantity_in_stock: 0,
-                userRoleId: 0,
-            };
-            success.value = response.data.message || "Product edited sucessfully";
-                showSuccess.value = true;
+    .then((response) => {
+      formData.value = {
+        name: "",
+        quantity_in_stock: 0,
+        userRoleId: 0,
+      };
+      success.value = response.data.message || "Product edited sucessfully";
+      showSuccess.value = true;
 
-                setTimeout(() => {
-                    showSuccess.value = false;
-                }, 2000);
-        })
-        .catch((error) => {
-              error.value = error.response.data.message || "An error occurred.";
-
-              showError.value = true;
-              setTimeout(() => {
-                  showError.value = false;
-              }, 2000);
-        });
-
-    await axios.post("http://127.0.0.1:8000/api/update-item", {
-        userId: userId,
-        productId: productId,
-        shelfId: formData.value.shelf_id,
-        column: selectedColumn.value,
-        row: selectedRow.value
+      setTimeout(() => {
+        showSuccess.value = false;
+      }, 2000);
     })
-        .then((response) => {
-            success.value = response.data.message || "Product added successfully";
-            showSuccess.value = true;
+    .catch((error) => {
+      error.value = error.response.data.message || "An error occurred.";
 
-            setTimeout(() => {
-                showSuccess.value = false;
-            }, 2000);
-        })
-        .catch((err) => {
-            error.value = err.response.data.message || "An error occurred.";
-            showError.value = true;
+      showError.value = true;
+      setTimeout(() => {
+        showError.value = false;
+      }, 2000);
+    });
 
-            setTimeout(() => {
-                showError.value = false;
-            }, 2000);
-        })
+  await axios
+    .post("http://127.0.0.1:8000/api/update-item", {
+      userId: userId,
+      productId: productId,
+      shelfId: formData.value.shelf_id,
+      column: selectedColumn.value,
+      row: selectedRow.value,
+    })
+    .then((response) => {
+      success.value = response.data.message || "Product added successfully";
+      showSuccess.value = true;
+
+      setTimeout(() => {
+        showSuccess.value = false;
+      }, 2000);
+    })
+    .catch((err) => {
+      error.value = err.response.data.message || "An error occurred.";
+      showError.value = true;
+
+      setTimeout(() => {
+        showError.value = false;
+      }, 2000);
+    });
 };
 
 const closeDropdown = () => {
