@@ -153,7 +153,27 @@ const getProducts = async () => {
             });
 };
 
-
+const getProductLocations = async () => {
+  await axios.get('http://127.0.0.1:8000/api/get-product-location')
+    .then((response) => {
+      const productLocations = response.data.data; // Make sure to access the data property
+      products.value = products.value.map((product) => { // Use map instead of forEach
+        const location = productLocations.find(loc => loc.product_id === product.product_id); // Make sure to match the correct property
+        if (location) {
+          return {
+            ...product,
+            shelf: location.shelf_id,
+            column: location.column,
+            row: location.row
+          };
+        }
+        return product;
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 const deleteProduct = async (productId, userRoleId) => {
     await axios.delete('http://127.0.0.1:8000/api/delete-product', {
@@ -181,5 +201,8 @@ const filteredProducts = computed(() => {
     });
 });
 
-onMounted(getProducts);
+onMounted(() => {
+  getProducts();
+  getProductLocations();
+});
 </script>

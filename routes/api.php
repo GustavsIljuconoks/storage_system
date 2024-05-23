@@ -50,6 +50,7 @@ Route::put('/update-user/{id}', [UserController::class, 'updateUser'])->name('us
 Route::get('/log-users', [UserController::class, 'logUsers'])->name('user.logs');
 
 Route::get('/get-shelfes', [ShelfController::class, 'getAllShelfes'])->name('shelfe.all');
+Route::get('/get-product-location', [ShelfController::class, 'getProductLocation'])->name('shelfes.location');
 Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
 Route::delete('/delete-item', [ShelfController::class, 'deleteItem'])->name('shelve.delete');
 

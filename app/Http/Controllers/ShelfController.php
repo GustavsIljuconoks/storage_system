@@ -19,6 +19,16 @@ class ShelfController extends Controller
         ], 200);
     }
 
+    public function getProductLocation(): JsonResponse
+    {
+        $productLocation = Cell::select('product_id', 'shelf_id', 'column', 'row')->get();
+
+        return response()->json([
+            "data" => $productLocation,
+            "message" => "Products locations retrieved successfully"
+        ], 200);
+    }
+
     public function putItem(Request $request): JsonResponse
     {
         $productId = $request->productId;
@@ -38,8 +48,8 @@ class ShelfController extends Controller
 
         if ($row <= $shelf->row && $column <= $shelf->column) {
             $cellOccupied = Cell::where('row', $row)
-                        ->where('column', $column)
-                        ->exists();
+                ->where('column', $column)
+                ->exists();
 
             if (!$cellOccupied) {
                 $cell = new Cell();
