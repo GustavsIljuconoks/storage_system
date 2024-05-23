@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cell;
+use App\Models\Product;
 use App\Models\Shelf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -85,6 +86,69 @@ class ShelfController extends Controller
 
         return response()->json([
             "message" => "Item not found"
+        ], 404);
+    }
+
+    public function updateItem(Request $request)
+    {
+        $productId = $request->productId;
+        $row = $request->row;
+        $column = $request->column;
+        $shelfId = $request->shelfId;
+
+        $shelves = Shelf::select('shelf_id', 'column', 'row')->get();
+        $shelf = $shelves->firstWhere('shelf_id', $shelfId);
+
+        if (!$shelf) {
+            return response()->json([
+                "message" => "Invalid shelf"
+            ], 400);
+        }
+
+        $cell = Cell::where('product_id', $productId)->first();
+        if ($row <= $shelf->row && $column <= $shelf->column) {
+            if ($cell == null) {
+                $cellOccupied = Cell::where('row', $row)
+                    ->where('column', $column)
+                    ->exists();
+
+                if (!$cellOccupied) {
+                    $cell = new Cell();
+                    $cell->shelf_id = $request->shelfId;
+                    $cell->product_id = $productId;
+                    $cell->column = $column;
+                    $cell->row = $row;
+                    $cell->is_occupied = true;
+                    $cell->save();
+
+                    return response()->json([
+                        "data" => $cell,
+                        "message" => "Item placed successfully"
+                    ], 200);
+                }
+
+                return response()->json([
+                    "message" => "Place occupied"
+                ], 404);
+            }
+
+            if ($cell->exists()) {
+                $updateCell = Cell::find($cell->cell_id);
+                $updateCell->update([
+                    'shelf_id' => $shelfId,
+                    'row' => $row,
+                    'column' => $column
+                ]);
+
+                return response()->json([
+                    "data" => $updateCell,
+                    "message" => "Item updated successfully"
+                ], 200);
+            }
+        }
+
+        return response()->json([
+            "message" => "Invalid position"
         ], 404);
     }
 }

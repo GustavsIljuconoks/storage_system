@@ -21,7 +21,7 @@ class Cell extends Model
     protected $fillable  = [
         'shelve_id',
         'product_id',
-        'position',
+        'column',
         'row',
         'occupied'
     ];

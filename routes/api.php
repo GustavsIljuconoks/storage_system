@@ -53,6 +53,7 @@ Route::get('/get-shelfes', [ShelfController::class, 'getAllShelfes'])->name('she
 Route::get('/get-product-location', [ShelfController::class, 'getProductLocation'])->name('shelfes.location');
 Route::post('/put-item', [ShelfController::class, 'putItem'])->name('shelve.put');
 Route::delete('/delete-item', [ShelfController::class, 'deleteItem'])->name('shelve.delete');
+Route::post('/update-item', [ShelfController::class, 'updateItem'])->name('shelve.update');
 
 Route::group([
     "middleware" => ["auth:sanctum"]
