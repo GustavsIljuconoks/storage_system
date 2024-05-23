@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderLogs;
 use App\Models\ProductsLogs;
 use App\Models\Task;
 use App\Models\User;
@@ -94,11 +95,14 @@ class UserController extends Controller
         $userInfo = array();
 
         foreach ($users as $user) {
+            $lastOrder = OrderLogs::where('user_id', $user->user_id)->first();
+
             $info = array(
                 'id' => $user->user_id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'role' => $user->role_id,
+                'orderId' => $lastOrder->order_id ?? ''
             );
 
             $role = UserRoles::find($user->role_id);
