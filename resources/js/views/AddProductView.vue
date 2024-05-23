@@ -370,51 +370,55 @@ const getCategories = async () => {
 };
 
 const addProduct = async () => {
-    const productData = {
-        name: formData.value.name,
-        quantity_in_stock: formData.value.quantity_in_stock,
-        category_id: formData.value.category_id,
+  const productData = {
+    name: formData.value.name,
+    quantity_in_stock: formData.value.quantity_in_stock,
+    category_id: formData.value.category_id,
+    userId: userId,
+  };
+
+  try {
+    const response1 = await axios.post(
+      "http://127.0.0.1:8000/api/add-product",
+      productData
+    );
+    const productId = response1.data.product.product_id;
+
+    const response2 = await axios
+      .post("http://127.0.0.1:8000/api/put-item", {
         userId: userId,
-    };
-
-    try {
-        const response1 = await axios.post("http://127.0.0.1:8000/api/add-product", productData)
-        const productId = response1.data.product.product_id
-
-        const response2 = await axios.post("http://127.0.0.1:8000/api/put-item", {
-            userId: userId,
-            productId: productId,
-            shelfId: formData.value.shelf_id,
-            column: selectedColumn.value,
-            row: selectedRow.value
-        })
-            .catch((error) => {
-                console.log(error)
-                error.value = error.response.data.message || "An error occurred.";
-
-                showError.value = true;
-                setTimeout(() => {
-                    showError.value = false;
-                }, 2000);
-            })
-
-        success.value = response1.data.message || response2.data.message || "Product added successfully";
-        showSuccess.value = true;
-
-        setTimeout(() => {
-            showSuccess.value = false;
-        }, 2000);
-
-        router.push({ name: "products" });
-
-    } catch (error) {
+        productId: productId,
+        shelfId: formData.value.shelf_id,
+        column: selectedColumn.value,
+        row: selectedRow.value,
+      })
+      .catch((error) => {
+        console.log(error);
         error.value = error.response.data.message || "An error occurred.";
 
         showError.value = true;
         setTimeout(() => {
-            showError.value = false;
+          showError.value = false;
         }, 2000);
-    }
+      });
+
+    success.value =
+      response1.data.message || response2.data.message || "Product added successfully";
+    showSuccess.value = true;
+
+    setTimeout(() => {
+      showSuccess.value = false;
+    }, 2000);
+
+    router.push({ name: "products" });
+  } catch (err) {
+    error.value = error.response.data.message || "An error occurred.";
+
+    showError.value = true;
+    setTimeout(() => {
+      showError.value = false;
+    }, 2000);
+  }
 };
 
 onMounted(() => {

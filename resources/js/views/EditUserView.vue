@@ -318,7 +318,7 @@ const updateUser = async (userId: number) => {
         showSuccess.value = false;
       }, 2000);
     })
-    .catch((error) => {
+    .catch((err) => {
       error.value = err.response.data.message || "An error occurred.";
 
       showError.value = true;

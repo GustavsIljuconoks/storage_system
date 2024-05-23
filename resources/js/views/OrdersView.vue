@@ -255,7 +255,7 @@ const deleteOrder = async (orderId) => {
                 showSuccess.value = false;
             }, 2000);
         })
-        .catch((error) => {
+        .catch((err) => {
             error.value = error.response.data.message || 'An error occurred.';
 
             showError.value = true;

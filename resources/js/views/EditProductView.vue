@@ -12,9 +12,10 @@
       >
         <div class="p-6 space-y-4 md:space-y-2 sm:p-8">
           <h1
-            class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            class="flex text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
             Edit Product
+            <p class="ml-2 text-purple-900 font-bold">"{{ product.name }}"</p>
           </h1>
 
           <AlertMessage :message="error" :show="showError" type="error" />
@@ -363,7 +364,7 @@ const updateProduct = async (productId: number) => {
         showSuccess.value = false;
       }, 2000);
     })
-    .catch((error) => {
+    .catch((err) => {
       error.value = error.response.data.message || "An error occurred.";
 
       showError.value = true;
