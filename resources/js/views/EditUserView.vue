@@ -32,7 +32,7 @@
           <h1
             class="text-xl -mb-4 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
-            Edit User
+            Edit User <span>"{{ user.name }}"</span>
           </h1>
           <div>
             <label
@@ -41,7 +41,7 @@
               >User's ID: {{ user.user_id }}</label
             >
           </div>
-          <form @submit.prevent="updateUser(user.id)" class="space-y-4 md:space-y-6">
+          <form @submit.prevent="updateUser(user.user_id)" class="space-y-4 md:space-y-6">
             <div>
               <label
                 for="name"
@@ -296,7 +296,6 @@ const updateUser = async (userId: number) => {
   for (const key in formData.value) {
     if (formData.value[key]) {
       requestData[key] = formData.value[key];
-      console.log(formData.value);
     }
   }
 
@@ -318,7 +317,7 @@ const updateUser = async (userId: number) => {
         showSuccess.value = false;
       }, 2000);
     })
-    .catch((error) => {
+    .catch((err) => {
       error.value = err.response.data.message || "An error occurred.";
 
       showError.value = true;
