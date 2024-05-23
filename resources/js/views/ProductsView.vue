@@ -184,6 +184,7 @@ const deleteProduct = async (productId, userRoleId) => {
     })
     .then((response) => {
         getProducts();
+        getProductLocations();
     })
     .catch((err)=> {
         console.log(err);

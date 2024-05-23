@@ -24,8 +24,7 @@ class ShelfController extends Controller
         $productLocation = Cell::select('product_id', 'shelf_id', 'column', 'row')->get();
 
         return response()->json([
-            "data" => $productLocation,
-            "message" => "Products locations retrieved successfully"
+            "data" => $productLocation
         ], 200);
     }
 
