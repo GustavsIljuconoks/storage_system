@@ -41,14 +41,21 @@
               v-slot="{ active }"
               @click="handleMenuItemClick(item)"
             >
-              <button
+              <label
                 :class="[
                   active ? 'bg-gray-100 text-black' : 'text-gray-900',
-                  'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                  'group flex w-full items-center rounded-md px-2 py-2 text-sm cursor-pointer',
                 ]"
               >
+                <input
+                  type="radio"
+                  name="menu-item"
+                  class="mr-2 cursor-pointer"
+                  :value="item.value"
+                  v-model="selectedItem"
+                />
                 {{ item.label }}
-              </button>
+              </label>
             </MenuItem>
           </div>
         </MenuItems>
@@ -59,11 +66,14 @@
 
 <script setup lang="ts">
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { ref } from "vue";
 const props = defineProps(["menuItems", "apiEndpoint"]);
 
 const emit = defineEmits(["selected"]);
+const selectedItem = ref(null);
 
 const handleMenuItemClick = (item) => {
+  selectedItem.value = item.value;
   emit("selected", item);
 };
 </script>
