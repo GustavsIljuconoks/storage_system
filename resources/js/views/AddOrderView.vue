@@ -15,6 +15,8 @@
       <span class="font-medium">{{ success }}</span>
     </div>
 
+    <AlertMessage :message="error" :show="showError" type="error" />
+
     <div class="mt-6 overflow-auto relative">
       <table class="min-w-full border-separate border-spacing-y-2">
         <thead>
@@ -130,6 +132,8 @@ const formData = ref<IFormData>({
 
 const success = ref(null);
 const showSuccess = ref(true);
+const error = ref(null);
+const showError = ref(true);
 
 const category = ref<Option[]>([]);
 const products = ref<Option[]>([]);
@@ -204,8 +208,13 @@ const makeOrder = async () => {
         showSuccess.value = false;
       }, 2000);
     })
-    .catch((error) => {
-      console.error(error);
+    .catch((err) => {
+        error.value = err.response.data.message || "An error occurred.";
+
+        showError.value = true;
+        setTimeout(() => {
+            showError.value = false;
+        }, 2000);
     });
 };
 

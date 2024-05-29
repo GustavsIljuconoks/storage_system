@@ -91,10 +91,17 @@ class ShelfController extends Controller
 
     public function updateItem(Request $request)
     {
+        $validatedData = $this->validate($request, [
+            'column' => 'required | not_in:0',
+            'row' => 'required | not_in:0',
+            'shelfId' => 'required | not_in:0',
+        ]);
+
         $productId = $request->productId;
         $row = $request->row;
         $column = $request->column;
         $shelfId = $request->shelfId;
+
 
         $shelves = Shelf::select('shelf_id', 'column', 'row')->get();
         $shelf = $shelves->firstWhere('shelf_id', $shelfId);
@@ -114,10 +121,10 @@ class ShelfController extends Controller
 
                 if (!$cellOccupied) {
                     $cell = new Cell();
-                    $cell->shelf_id = $request->shelfId;
+                    $cell->shelf_id = $validatedData['shelfId'];
                     $cell->product_id = $productId;
-                    $cell->column = $column;
-                    $cell->row = $row;
+                    $cell->column = $validatedData['column'];
+                    $cell->row = $validatedData['row'];
                     $cell->is_occupied = true;
                     $cell->save();
 

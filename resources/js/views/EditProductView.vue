@@ -365,7 +365,7 @@ const updateProduct = async (productId: number) => {
       }, 2000);
     })
     .catch((err) => {
-      error.value = error.response.data.message || "An error occurred.";
+      error.value = err.response.data.message || "An error occurred.";
 
       showError.value = true;
       setTimeout(() => {

@@ -16,10 +16,15 @@ class OrderController extends Controller
 {
     public function makeOrder(Request $request): JsonResponse
     {
+        $validatedData = $this->validate(request(), [
+            'count' => 'required | max:255 | not_in:0',
+            'manufactureId' => 'required | max:255 | not_in:0',
+            'productId' => 'required | max:255 | not_in:0',
+        ]);
+
         $userId = $request->userId;
         $manufactureId = $request->manufactureId;
         $productId = $request->productId;
-        $productCount = $request->count;
 
         $userRoleId = User::where("user_id", $userId)->get(['role_id']);
 
@@ -30,9 +35,9 @@ class OrderController extends Controller
                 $order = Order::create([
                     "status_id" => 1,
                     "user_id" => $userId,
-                    "manufacturer_id" => $manufactureId,
-                    "product_id" => $productId,
-                    "product_count" => $productCount,
+                    "manufacturer_id" => $validatedData['manufactureId'],
+                    "product_id" => $validatedData['productId'],
+                    "product_count" => $validatedData['count'],
                     "created_date" => now(),
                 ]);
 

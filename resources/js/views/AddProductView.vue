@@ -392,9 +392,8 @@ const addProduct = async () => {
         column: selectedColumn.value,
         row: selectedRow.value,
       })
-      .catch((error) => {
-        console.log(error);
-        error.value = error.response.data.message || "An error occurred.";
+      .catch((err) => {
+        error.value = err.response.data.message || "An error occurred.";
 
         showError.value = true;
         setTimeout(() => {
@@ -412,7 +411,7 @@ const addProduct = async () => {
 
     router.push({ name: "products" });
   } catch (err) {
-    error.value = error.response.data.message || "An error occurred.";
+    error.value = err.response.data.message || "An error occurred.";
 
     showError.value = true;
     setTimeout(() => {

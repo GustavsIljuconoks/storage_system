@@ -39,8 +39,8 @@ class ProductController extends Controller
     public function addProduct(Request $request): JsonResponse
     {
         $validatedData = $this->validate(request(), [
-            'name' => 'required | max:45',
-            'quantity_in_stock' => 'required | max:255',
+            'name' => 'required | min:4 |max:45',
+            'quantity_in_stock' => 'required | max:255 | not_in:0',
             'category_id' => 'required',
         ]);
 
@@ -73,25 +73,22 @@ class ProductController extends Controller
 
     public function updateProduct(Request $request, $id): JsonResponse
     {
-        $userRoleId = $request->requestData->userRoleId;
+        $validatedData = $this->validate($request, [
+            'requestData.name' => 'min:4 |max:45',
+            'requestData.quantity_in_stock' => 'max:255 | not_in:0',
+        ]);
+
+        $userRoleId = $request->requestData['userRoleId'];
 
         if ($userRoleId === 1 || $userRoleId === 2) {
             if (Product::where('product_id', $id)->exists()) {
                 $product = Product::find($id);
 
-                $product->update($request->all());
-
-                if ($request->has('name')) {
-                    $product->name = $request->requestData->name;
-                }
-
-                if ($request->has('quantity_in_stock')) {
-                    $product->quantity_in_stock = $request->requestData->quantity_in_stock;
-                }
-
-                if ($request->has('category_id')) {
-                    $product->category_id = $request->requestData->category_id;
-                }
+                $product->update([
+                    'name' => $validatedData['name'],
+                    'quantity_in_stock' => $validatedData['quantity_in_stock'],
+                    'category_id' => $validatedData['category_id'],
+                ]);
 
                 $newOrder = new ProductsLogs();
                 $newOrder->product_id = $id;
