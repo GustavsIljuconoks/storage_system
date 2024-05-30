@@ -9,7 +9,6 @@ import AddProductView from "../views/AddProductView.vue";
 import EditProductView from "../views/EditProductView.vue";
 import OrdersView from "../views/OrdersView.vue";
 import AddOrderView from "../views/AddOrderView.vue";
-import EditOrderView from "../views/EditOrderView.vue";
 
 
 const router = createRouter({
@@ -70,14 +69,6 @@ const router = createRouter({
             component: AddOrderView,
             meta: {
                 title: 'Add Order',
-            },
-        },
-        {
-            path: '/editorder',
-            name: 'editorder',
-            component: EditOrderView,
-            meta: {
-                title: 'Edit Order',
             },
         },
         {

@@ -123,22 +123,48 @@ const orderLogs = ref();
 const productLogs = ref();
 const userLogs = ref();
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+};
+
 const orderLog = async () => {
-  await axios.get("http://127.0.0.1:8000/api/log-order").then((response) => {
-    orderLogs.value = response.data;
-  });
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/log-order");
+    orderLogs.value = response.data.map((item) => ({
+      ...item,
+      created_at: formatDate(item.created_at),
+      updated_at: formatDate(item.updated_at),
+    }));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const productLog = async () => {
-  await axios.get("http://127.0.0.1:8000/api/log-products").then((response) => {
-    productLogs.value = response.data;
-  });
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/log-products");
+    productLogs.value = response.data.map((item) => ({
+      ...item,
+      created_at: formatDate(item.created_at),
+      updated_at: formatDate(item.updated_at),
+    }));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const userLog = async () => {
-  await axios.get("http://127.0.0.1:8000/api/log-users").then((response) => {
-    userLogs.value = response.data;
-  });
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/api/log-users");
+    userLogs.value = response.data.map((item) => ({
+      ...item,
+      created_at: formatDate(item.created_at),
+      updated_at: formatDate(item.updated_at),
+    }));
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 onMounted(() => {
