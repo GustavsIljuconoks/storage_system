@@ -272,7 +272,13 @@ const filteredOrders = computed(() => {
         if (!isNaN(searchNumber)) {
             return order.id === searchNumber || order.quantity === searchNumber;
         }
-        return order.name.toLowerCase().includes(searchText.value.toLowerCase());
+        const orderName = String(order.name).toLowerCase();
+        const orderCategory = String(order.category).toLowerCase();
+        const orderStatus = String(order.status).toLowerCase();
+
+        return orderName.includes(searchText.value.toLowerCase()) ||
+               orderCategory.includes(searchText.value.toLowerCase()) ||
+               orderStatus.includes(searchText.value.toLowerCase());
     });
 });
 

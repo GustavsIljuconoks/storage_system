@@ -203,9 +203,10 @@ const filteredProducts = computed(() => {
                    product.row === searchNumber;
         }
         return product.name.toLowerCase().includes(searchText.value.toLowerCase()) ||
-               (product.shelf && product.shelf.toLowerCase().includes(searchText.value.toLowerCase())) ||
-               (product.column && product.column.toLowerCase().includes(searchText.value.toLowerCase())) ||
-               (product.row && product.row.toLowerCase().includes(searchText.value.toLowerCase()));
+               (product.shelf && String(product.shelf).toLowerCase().includes(searchText.value.toLowerCase())) ||
+               (product.column && String(product.column).toLowerCase().includes(searchText.value.toLowerCase())) ||
+               (product.row && String(product.row).toLowerCase().includes(searchText.value.toLowerCase())) ||
+               (product.category && String(product.category).toLowerCase().includes(searchText.value.toLowerCase()));
     });
 });
 
