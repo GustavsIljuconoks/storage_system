@@ -30,9 +30,10 @@
           </div>
 
           <h1
-            class="text-xl -mb-4 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+            class="flex text-xl -mb-4 font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
           >
-            Edit User <span>"{{ user.name }}"</span>
+            Edit User
+            <p class="ml-2 text-purple-900 font-bold">"{{ user.name }}"</p>
           </h1>
           <div>
             <label
