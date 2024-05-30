@@ -1,8 +1,8 @@
 # Storage control system
-This was school's lesson's assigned pair project.
+_This was school's lesson's assigned pair project._
 
 ### What is this project?
-This is a simple storage control system in which there's 
+This is a simple storage control system in which there's :
 - authorisation;
 - users management (adding, editing, deleting);
 - products management (adding, editing, deleting);
