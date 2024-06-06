@@ -209,12 +209,12 @@ const makeOrder = async () => {
       }, 2000);
     })
     .catch((err) => {
-        error.value = err.response.data.message || "An error occurred.";
+      error.value = err.response.data.message || "An error occurred.";
 
-        showError.value = true;
-        setTimeout(() => {
-            showError.value = false;
-        }, 2000);
+      showError.value = true;
+      setTimeout(() => {
+        showError.value = false;
+      }, 2000);
     });
 };
 

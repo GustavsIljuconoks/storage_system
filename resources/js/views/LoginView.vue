@@ -156,6 +156,10 @@ const login = async () => {
 
       axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.token}`;
       router.push({ name: "users" });
+
+      setTimeout(() => {
+        location.reload();
+      }, 250);
     })
     .catch((err) => {
       error.value = err.response.data.message || "An error occurred.";
